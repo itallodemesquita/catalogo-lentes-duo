@@ -252,7 +252,7 @@
             <!-- Indicador de Perfil e Status -->
             <div class="flex items-center gap-2.5">
                 <span id="roleBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"><span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span> Modo Editor (Autorizado)</span>
-                <span id="saveStatus" class="text-xs text-gray-400 hidden sm:inline">Salvo automaticamente no navegador</span>
+                <span id="saveStatus" class="text-xs text-gray-400 hidden sm:inline">Salvo automaticamente na nuvem</span>
             </div>
 
             <!-- Busca Rápida e Controles de Documento -->
@@ -390,7 +390,7 @@
         </section>
 
         <!-- Barra de Aviso do Modo Editor -->
-        <div id="editModeBanner" class="no-print mb-8 p-3.5 rounded-2xl bg-amber-50 border border-amber-200/80 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-900">
+        <div id="editModeBanner" class="no-print mb-8 p-3.5 rounded-2xl bg-amber-50 border border-amber-200/80 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-900 hidden">
             <div class="flex items-center gap-2.5">
                 <span class="flex h-6 w-6 items-center justify-center rounded-full bg-amber-200 text-amber-900 font-bold">✎</span>
                 <div>
@@ -403,954 +403,10 @@
         </div>
 
         <!-- Container Dinâmico das Categorias e Tabelas de Marcas -->
-        <div id="categoriesContainer"><section class="category-section mb-12 ">
-                    
-                    
-                    <div class="no-print flex items-center justify-center gap-2 mb-2">
-                        <button onclick="moveCategory('cat_vs', -1)" disabled="" class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded" title="Mover categoria para cima">↑ Subir</button>
-                        <button onclick="moveCategory('cat_vs', 1)" class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium" title="Mover categoria para baixo">↓ Descer</button>
-                        <button onclick="toggleCategoryPageBreak('cat_vs')" class="px-2.5 py-1 text-xs bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg font-medium" title="Iniciar esta categoria em uma nova folha A4">
-                            📄 Inserir Quebra de Página Acima
-                        </button>
-                        <button onclick="confirmRemoveCategory('cat_vs')" class="px-2.5 py-1 text-xs bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium" title="Excluir esta categoria inteira">
-                            🗑️ Excluir Categoria
-                        </button>
-                    </div>
-                
-                    <h2 class="category-heading" contenteditable="true" onblur="updateCategoryName('cat_vs', this.innerText)">VISÃO SIMPLES</h2>
-                    <div>
-                        
-                <div class="brand-table-card">
-                    <!-- Barra da Marca (Ex: OPTVIEW) -->
-                    <div class="brand-header" style="background-color: #489ca8">
-                        <span contenteditable="true" onblur="updateBrandName('cat_vs', 'tb_optview_vs', this.innerText)">OPTVIEW</span>
-                        
-                <div class="no-print absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-full">
-                    <label class="cursor-pointer flex items-center gap-1 text-[11px] font-medium text-white/90 hover:text-white" title="Mudar cor do cabeçalho desta marca">
-                        <span>🎨 Cor</span>
-                        <input type="color" value="#489ca8" onchange="updateBrandColor('cat_vs', 'tb_optview_vs', this.value)" class="w-4 h-4 rounded cursor-pointer border-0 bg-transparent p-0">
-                    </label>
-                    <span class="text-white/40">|</span>
-                    <button onclick="moveBrandTable('cat_vs', 'tb_optview_vs', -1)" disabled="" class="opacity-30 text-white text-xs px-1" title="Subir tabela">↑</button>
-                    <button onclick="moveBrandTable('cat_vs', 'tb_optview_vs', 1)" class="text-white hover:text-teal-200 text-xs px-1" title="Descer tabela">↓</button>
-                    <button onclick="confirmRemoveBrandTable('cat_vs', 'tb_optview_vs')" class="text-red-200 hover:text-white text-xs px-1" title="Excluir tabela desta marca">🗑️</button>
-                </div>
-            
-                    </div>
-
-                    <!-- Tabela de Lentes -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full border-collapse">
-                            <thead>
-                                <tr class="table-subheader">
-                                    <th class="py-2.5 pl-6 pr-3 text-left">NOME</th>
-                                    <th class="py-2.5 px-3 text-center">ATRIBUTOS</th>
-                                    <th class="py-2.5 px-3 text-center">ESFÉRICO</th>
-                                    <th class="py-2.5 px-3 text-center">CILÍNDRICO</th>
-                                    <th class="py-2.5 pl-3 pr-6 text-center">VALOR</th>
-                                    <th class="no-print py-2.5 px-3 text-right w-24">AÇÕES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1', 'name', this.innerText)">OPTVIEW VS 1.56 FASTKOT FILTRO AZUL AR AZUL</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1')">
-                                <span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span><span title="AR AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#8ec5fc"></circle></svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1', 'spherical', this.innerText)">+4,00/-8,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1', 'price', this.innerText)">R$ 640,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1', -1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_1')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_2', 'name', this.innerText)">OPTVIEW VS 1.56 FASTKOT SUPERHIDRO AR VERDE</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_2')">
-                                <span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span><span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_2')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_2', 'spherical', this.innerText)">+4,00/-8,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_2', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_2', 'price', this.innerText)">R$ 640,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_2', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_2', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_2')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_3', 'name', this.innerText)">OPTVIEW VS 1.56 FOTO SUPERHIDRO AR VERDE</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_3')">
-                                <span title="FOTOSSENSÍVEL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9" fill="#d1d5db" stroke="#4b5563" stroke-width="1.8"></circle>
-                        <path d="M12 3A9 9 0 0 0 12 21Z" fill="#4b5563"></path>
-                      </svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span><span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_3')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_3', 'spherical', this.innerText)">+4,00/-8,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_3', 'cylindrical', this.innerText)">0,00/-4,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_3', 'price', this.innerText)">R$ 780,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_3', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_3', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_3')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710272349', 'name', this.innerText)">OPTVIEW VS 1.59 POLI AR VERDE FILTRO AZUL</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710272349')">
-                                <span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span><span title="POLICARBONATO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg></span><span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710272349')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710272349', 'spherical', this.innerText)">+4,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710272349', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710272349', 'price', this.innerText)">R$ 640,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710272349', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710272349', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_1793710272349')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710273353', 'name', this.innerText)">OPTVIEW VS 1.59 POLI AR VERDE SUPERHIDRO FILTRO AZUL</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710273353')">
-                                <span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span><span title="POLICARBONATO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span><span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710273353')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710273353', 'spherical', this.innerText)">+4,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710273353', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710273353', 'price', this.innerText)">R$ 670,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710273353', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710273353', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_1793710273353')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710274034', 'name', this.innerText)">OPTVIEW VS 1.67 SUPERHIDRO AR VERDE FILTRO AZUL</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710274034')">
-                                <span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span><span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710274034')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710274034', 'spherical', this.innerText)">+4,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710274034', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710274034', 'price', this.innerText)">R$ 1700,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710274034', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710274034', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_1793710274034')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710275717', 'name', this.innerText)">OPTVIEW VS 1.74 SUPERHIDRO AR VERDE FILTRO AZUL</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710275717')">
-                                <span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span><span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_optview_vs', 'row_1793710275717')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710275717', 'spherical', this.innerText)">+4,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710275717', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_optview_vs', 'row_1793710275717', 'price', this.innerText)">R$ 2600,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710275717', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_optview_vs', 'row_1793710275717', 1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_optview_vs', 'row_1793710275717')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                            </tbody>
-                        </table>
-                    </div>
-
-                    
-                <div class="no-print bg-gray-50/80 border-t border-gray-200 px-6 py-2.5 flex items-center justify-between">
-                    <button onclick="addNewLensRow('cat_vs', 'tb_optview_vs')" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-900 py-1 px-3 rounded-lg hover:bg-teal-50 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                        <span>Adicionar Lente (Nova Linha)</span>
-                    </button>
-                    <span class="text-[11px] text-gray-400">7 lente(s) cadastrada(s)</span>
-                </div>
-            
-                </div>
-            
-                <div class="brand-table-card">
-                    <!-- Barra da Marca (Ex: OPTVIEW) -->
-                    <div class="brand-header" style="background-color: #489ca8">
-                        <span contenteditable="true" onblur="updateBrandName('cat_vs', 'tb_zeiss_vs', this.innerText)">ZEISS</span>
-                        
-                <div class="no-print absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-full">
-                    <label class="cursor-pointer flex items-center gap-1 text-[11px] font-medium text-white/90 hover:text-white" title="Mudar cor do cabeçalho desta marca">
-                        <span>🎨 Cor</span>
-                        <input type="color" value="#489ca8" onchange="updateBrandColor('cat_vs', 'tb_zeiss_vs', this.value)" class="w-4 h-4 rounded cursor-pointer border-0 bg-transparent p-0">
-                    </label>
-                    <span class="text-white/40">|</span>
-                    <button onclick="moveBrandTable('cat_vs', 'tb_zeiss_vs', -1)" class="text-white hover:text-teal-200 text-xs px-1" title="Subir tabela">↑</button>
-                    <button onclick="moveBrandTable('cat_vs', 'tb_zeiss_vs', 1)" disabled="" class="opacity-30 text-white text-xs px-1" title="Descer tabela">↓</button>
-                    <button onclick="confirmRemoveBrandTable('cat_vs', 'tb_zeiss_vs')" class="text-red-200 hover:text-white text-xs px-1" title="Excluir tabela desta marca">🗑️</button>
-                </div>
-            
-                    </div>
-
-                    <!-- Tabela de Lentes -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full border-collapse">
-                            <thead>
-                                <tr class="table-subheader">
-                                    <th class="py-2.5 pl-6 pr-3 text-left">NOME</th>
-                                    <th class="py-2.5 px-3 text-center">ATRIBUTOS</th>
-                                    <th class="py-2.5 px-3 text-center">ESFÉRICO</th>
-                                    <th class="py-2.5 px-3 text-center">CILÍNDRICO</th>
-                                    <th class="py-2.5 pl-3 pr-6 text-center">VALOR</th>
-                                    <th class="no-print py-2.5 px-3 text-right w-24">AÇÕES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_4', 'name', this.innerText)">ZEISS CLEARVIEW 1.50</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_zeiss_vs', 'row_4')">
-                                <span title="AR AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#8ec5fc"></circle></svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_zeiss_vs', 'row_4')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_4', 'spherical', this.innerText)">+6,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_4', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_4', 'price', this.innerText)">R$ 950,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_zeiss_vs', 'row_4', -1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_zeiss_vs', 'row_4', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_zeiss_vs', 'row_4')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_5', 'name', this.innerText)">ZEISS CLEARVIEW 1.59</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_vs', 'tb_zeiss_vs', 'row_5')">
-                                <span title="POLICARBONATO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg></span><span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_vs', 'tb_zeiss_vs', 'row_5')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_5', 'spherical', this.innerText)">+6,00/-8,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_5', 'cylindrical', this.innerText)">0,00/-4,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_vs', 'tb_zeiss_vs', 'row_5', 'price', this.innerText)">R$ 1.380,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_vs', 'tb_zeiss_vs', 'row_5', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_vs', 'tb_zeiss_vs', 'row_5', 1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_vs', 'tb_zeiss_vs', 'row_5')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                            </tbody>
-                        </table>
-                    </div>
-
-                    
-                <div class="no-print bg-gray-50/80 border-t border-gray-200 px-6 py-2.5 flex items-center justify-between">
-                    <button onclick="addNewLensRow('cat_vs', 'tb_zeiss_vs')" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-900 py-1 px-3 rounded-lg hover:bg-teal-50 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                        <span>Adicionar Lente (Nova Linha)</span>
-                    </button>
-                    <span class="text-[11px] text-gray-400">2 lente(s) cadastrada(s)</span>
-                </div>
-            
-                </div>
-            
-                    </div>
-                    
-                    <div class="no-print text-center mt-4 mb-8">
-                        <button onclick="addNewBrandTable('cat_vs')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-teal-500/60 hover:border-teal-600 bg-teal-50/40 hover:bg-teal-50 text-teal-800 text-xs font-bold uppercase tracking-wider transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                            <span>+ Nova Tabela de Marca em VISÃO SIMPLES</span>
-                        </button>
-                    </div>
-                
-                </section><section class="category-section mb-12 ">
-                    
-                    
-                    <div class="no-print flex items-center justify-center gap-2 mb-2">
-                        <button onclick="moveCategory('cat_multi', -1)" class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium" title="Mover categoria para cima">↑ Subir</button>
-                        <button onclick="moveCategory('cat_multi', 1)" class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium" title="Mover categoria para baixo">↓ Descer</button>
-                        <button onclick="toggleCategoryPageBreak('cat_multi')" class="px-2.5 py-1 text-xs bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg font-medium" title="Iniciar esta categoria em uma nova folha A4">
-                            📄 Inserir Quebra de Página Acima
-                        </button>
-                        <button onclick="confirmRemoveCategory('cat_multi')" class="px-2.5 py-1 text-xs bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium" title="Excluir esta categoria inteira">
-                            🗑️ Excluir Categoria
-                        </button>
-                    </div>
-                
-                    <h2 class="category-heading" contenteditable="true" onblur="updateCategoryName('cat_multi', this.innerText)">MULTIFOCAL</h2>
-                    <div>
-                        
-                <div class="brand-table-card">
-                    <!-- Barra da Marca (Ex: OPTVIEW) -->
-                    <div class="brand-header" style="background-color: #489ca8">
-                        <span contenteditable="true" onblur="updateBrandName('cat_multi', 'tb_varilux_multi', this.innerText)">VARILUX / ESSILOR</span>
-                        
-                <div class="no-print absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-full">
-                    <label class="cursor-pointer flex items-center gap-1 text-[11px] font-medium text-white/90 hover:text-white" title="Mudar cor do cabeçalho desta marca">
-                        <span>🎨 Cor</span>
-                        <input type="color" value="#489ca8" onchange="updateBrandColor('cat_multi', 'tb_varilux_multi', this.value)" class="w-4 h-4 rounded cursor-pointer border-0 bg-transparent p-0">
-                    </label>
-                    <span class="text-white/40">|</span>
-                    <button onclick="moveBrandTable('cat_multi', 'tb_varilux_multi', -1)" disabled="" class="opacity-30 text-white text-xs px-1" title="Subir tabela">↑</button>
-                    <button onclick="moveBrandTable('cat_multi', 'tb_varilux_multi', 1)" disabled="" class="opacity-30 text-white text-xs px-1" title="Descer tabela">↓</button>
-                    <button onclick="confirmRemoveBrandTable('cat_multi', 'tb_varilux_multi')" class="text-red-200 hover:text-white text-xs px-1" title="Excluir tabela desta marca">🗑️</button>
-                </div>
-            
-                    </div>
-
-                    <!-- Tabela de Lentes -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full border-collapse">
-                            <thead>
-                                <tr class="table-subheader">
-                                    <th class="py-2.5 pl-6 pr-3 text-left">NOME</th>
-                                    <th class="py-2.5 px-3 text-center">ATRIBUTOS</th>
-                                    <th class="py-2.5 px-3 text-center">ESFÉRICO</th>
-                                    <th class="py-2.5 px-3 text-center">CILÍNDRICO</th>
-                                    <th class="py-2.5 pl-3 pr-6 text-center">VALOR</th>
-                                    <th class="no-print py-2.5 px-3 text-right w-24">AÇÕES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_6', 'name', this.innerText)">VARILUX COMFORT MAX 1.50</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_multi', 'tb_varilux_multi', 'row_6')">
-                                <span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_multi', 'tb_varilux_multi', 'row_6')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_6', 'spherical', this.innerText)">+5,00/-7,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_6', 'cylindrical', this.innerText)">0,00/-4,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_6', 'price', this.innerText)">R$ 1.980,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_multi', 'tb_varilux_multi', 'row_6', -1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_multi', 'tb_varilux_multi', 'row_6', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_multi', 'tb_varilux_multi', 'row_6')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_7', 'name', this.innerText)">VARILUX COMFORT MAX 1.59</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_multi', 'tb_varilux_multi', 'row_7')">
-                                <span title="POLICARBONATO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg></span><span title="FILTRO AZUL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span><span title="FOTOSSENSÍVEL" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9" fill="#d1d5db" stroke="#4b5563" stroke-width="1.8"></circle>
-                        <path d="M12 3A9 9 0 0 0 12 21Z" fill="#4b5563"></path>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_multi', 'tb_varilux_multi', 'row_7')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_7', 'spherical', this.innerText)">+6,00/-8,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_7', 'cylindrical', this.innerText)">0,00/-4,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_multi', 'tb_varilux_multi', 'row_7', 'price', this.innerText)">R$ 2.690,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_multi', 'tb_varilux_multi', 'row_7', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_multi', 'tb_varilux_multi', 'row_7', 1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_multi', 'tb_varilux_multi', 'row_7')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                            </tbody>
-                        </table>
-                    </div>
-
-                    
-                <div class="no-print bg-gray-50/80 border-t border-gray-200 px-6 py-2.5 flex items-center justify-between">
-                    <button onclick="addNewLensRow('cat_multi', 'tb_varilux_multi')" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-900 py-1 px-3 rounded-lg hover:bg-teal-50 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                        <span>Adicionar Lente (Nova Linha)</span>
-                    </button>
-                    <span class="text-[11px] text-gray-400">2 lente(s) cadastrada(s)</span>
-                </div>
-            
-                </div>
-            
-                    </div>
-                    
-                    <div class="no-print text-center mt-4 mb-8">
-                        <button onclick="addNewBrandTable('cat_multi')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-teal-500/60 hover:border-teal-600 bg-teal-50/40 hover:bg-teal-50 text-teal-800 text-xs font-bold uppercase tracking-wider transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                            <span>+ Nova Tabela de Marca em MULTIFOCAL</span>
-                        </button>
-                    </div>
-                
-                </section><section class="category-section mb-12 ">
-                    
-                    
-                    <div class="no-print flex items-center justify-center gap-2 mb-2">
-                        <button onclick="moveCategory('cat_bi', -1)" class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium" title="Mover categoria para cima">↑ Subir</button>
-                        <button onclick="moveCategory('cat_bi', 1)" disabled="" class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded" title="Mover categoria para baixo">↓ Descer</button>
-                        <button onclick="toggleCategoryPageBreak('cat_bi')" class="px-2.5 py-1 text-xs bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-lg font-medium" title="Iniciar esta categoria em uma nova folha A4">
-                            📄 Inserir Quebra de Página Acima
-                        </button>
-                        <button onclick="confirmRemoveCategory('cat_bi')" class="px-2.5 py-1 text-xs bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium" title="Excluir esta categoria inteira">
-                            🗑️ Excluir Categoria
-                        </button>
-                    </div>
-                
-                    <h2 class="category-heading" contenteditable="true" onblur="updateCategoryName('cat_bi', this.innerText)">BIFOCAL</h2>
-                    <div>
-                        
-                <div class="brand-table-card">
-                    <!-- Barra da Marca (Ex: OPTVIEW) -->
-                    <div class="brand-header" style="background-color: #489ca8">
-                        <span contenteditable="true" onblur="updateBrandName('cat_bi', 'tb_optview_bi', this.innerText)">OPTVIEW</span>
-                        
-                <div class="no-print absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-full">
-                    <label class="cursor-pointer flex items-center gap-1 text-[11px] font-medium text-white/90 hover:text-white" title="Mudar cor do cabeçalho desta marca">
-                        <span>🎨 Cor</span>
-                        <input type="color" value="#489ca8" onchange="updateBrandColor('cat_bi', 'tb_optview_bi', this.value)" class="w-4 h-4 rounded cursor-pointer border-0 bg-transparent p-0">
-                    </label>
-                    <span class="text-white/40">|</span>
-                    <button onclick="moveBrandTable('cat_bi', 'tb_optview_bi', -1)" disabled="" class="opacity-30 text-white text-xs px-1" title="Subir tabela">↑</button>
-                    <button onclick="moveBrandTable('cat_bi', 'tb_optview_bi', 1)" disabled="" class="opacity-30 text-white text-xs px-1" title="Descer tabela">↓</button>
-                    <button onclick="confirmRemoveBrandTable('cat_bi', 'tb_optview_bi')" class="text-red-200 hover:text-white text-xs px-1" title="Excluir tabela desta marca">🗑️</button>
-                </div>
-            
-                    </div>
-
-                    <!-- Tabela de Lentes -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full border-collapse">
-                            <thead>
-                                <tr class="table-subheader">
-                                    <th class="py-2.5 pl-6 pr-3 text-left">NOME</th>
-                                    <th class="py-2.5 px-3 text-center">ATRIBUTOS</th>
-                                    <th class="py-2.5 px-3 text-center">ESFÉRICO</th>
-                                    <th class="py-2.5 px-3 text-center">CILÍNDRICO</th>
-                                    <th class="py-2.5 pl-3 pr-6 text-center">VALOR</th>
-                                    <th class="no-print py-2.5 px-3 text-right w-24">AÇÕES</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_8', 'name', this.innerText)">OPTVIEW BIFOCAL TOPO RETO 1.56</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_bi', 'tb_optview_bi', 'row_8')">
-                                <span title="INCOLOR" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9" fill="#ffffff" stroke="#9ca3af" stroke-width="1.8"></circle></svg></span><span title="AR VERDE" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_bi', 'tb_optview_bi', 'row_8')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_8', 'spherical', this.innerText)">+4,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_8', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_8', 'price', this.innerText)">R$ 640,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_bi', 'tb_optview_bi', 'row_8', -1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_bi', 'tb_optview_bi', 'row_8', 1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_bi', 'tb_optview_bi', 'row_8')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                    <tr class="lens-row">
-                        <!-- Coluna NOME -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_9', 'name', this.innerText)">OPTVIEW BIFOCAL INVISÍVEL 1.59</span>
-                        </td>
-
-                        <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
-                            <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50" onclick="openAttributePopover(event, 'cat_bi', 'tb_optview_bi', 'row_9')">
-                                <span title="POLICARBONATO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg></span><span title="SUPERHIDRO" class="inline-flex items-center"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span>
-                                
-                    <button onclick="openAttributePopover(event, 'cat_bi', 'tb_optview_bi', 'row_9')" class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition" title="Adicionar ou remover atributos desta lente">
-                        +
-                    </button>
-                
-                            </div>
-                        </td>
-
-                        <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_9', 'spherical', this.innerText)">+4,00/-6,00</span>
-                        </td>
-
-                        <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_9', 'cylindrical', this.innerText)">0,00/-2,00</span>
-                        </td>
-
-                        <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
-                            <span contenteditable="true" onblur="updateCellValue('cat_bi', 'tb_optview_bi', 'row_9', 'price', this.innerText)">R$ 820,00</span>
-                        </td>
-
-                        
-                    <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
-                        <div class="inline-flex items-center gap-1">
-                            <button onclick="moveLensRow('cat_bi', 'tb_optview_bi', 'row_9', -1)" class="p-1 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded" title="Subir linha">↑</button>
-                            <button onclick="moveLensRow('cat_bi', 'tb_optview_bi', 'row_9', 1)" disabled="" class="opacity-25 p-1 text-gray-400" title="Descer linha">↓</button>
-                            <button onclick="removeLensRow('cat_bi', 'tb_optview_bi', 'row_9')" class="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded" title="Remover esta lente">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </div>
-                    </td>
-                
-                    </tr>
-                
-                            </tbody>
-                        </table>
-                    </div>
-
-                    
-                <div class="no-print bg-gray-50/80 border-t border-gray-200 px-6 py-2.5 flex items-center justify-between">
-                    <button onclick="addNewLensRow('cat_bi', 'tb_optview_bi')" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-900 py-1 px-3 rounded-lg hover:bg-teal-50 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                        <span>Adicionar Lente (Nova Linha)</span>
-                    </button>
-                    <span class="text-[11px] text-gray-400">2 lente(s) cadastrada(s)</span>
-                </div>
-            
-                </div>
-            
-                    </div>
-                    
-                    <div class="no-print text-center mt-4 mb-8">
-                        <button onclick="addNewBrandTable('cat_bi')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-teal-500/60 hover:border-teal-600 bg-teal-50/40 hover:bg-teal-50 text-teal-800 text-xs font-bold uppercase tracking-wider transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                            <span>+ Nova Tabela de Marca em BIFOCAL</span>
-                        </button>
-                    </div>
-                
-                </section></div>
+        <div id="categoriesContainer"></div>
 
         <!-- Botão de Adicionar Nova Categoria de Lentes (Visível apenas no Modo Editor) -->
-        <div id="addCategoryWrapper" class="no-print mt-12 pt-6 border-t-2 border-dashed border-gray-200 text-center">
+        <div id="addCategoryWrapper" class="no-print mt-12 pt-6 border-t-2 border-dashed border-gray-200 text-center hidden">
             <button onclick="addNewCategory()" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
                 <span>Adicionar Nova Categoria (ex: Ocupacional / Solar / Contato)</span>
@@ -1367,90 +423,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
-        <div id="popoverOptionsList" class="space-y-1.5">
-                        <button type="button" onclick="toggleRowAttribute('ar_azul')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition hover:bg-gray-50 text-gray-700 border border-transparent">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#8ec5fc"></circle></svg>
-                                <span>AR AZUL</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center border border-gray-300">
-                                
-                            </span>
-                        </button>
-                    
-                        <button type="button" onclick="toggleRowAttribute('incolor')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition hover:bg-gray-50 text-gray-700 border border-transparent">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9" fill="#ffffff" stroke="#9ca3af" stroke-width="1.8"></circle></svg>
-                                <span>INCOLOR</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center border border-gray-300">
-                                
-                            </span>
-                        </button>
-                    
-                        <button type="button" onclick="toggleRowAttribute('superhidro')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition bg-teal-50 text-teal-900 border border-teal-300">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg>
-                                <span>SUPERHIDRO</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center bg-teal-600 text-white">
-                                ✓
-                            </span>
-                        </button>
-                    
-                        <button type="button" onclick="toggleRowAttribute('ar_verde')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition bg-teal-50 text-teal-900 border border-teal-300">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg>
-                                <span>AR VERDE</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center bg-teal-600 text-white">
-                                ✓
-                            </span>
-                        </button>
-                    
-                        <button type="button" onclick="toggleRowAttribute('filtro_azul')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition bg-teal-50 text-teal-900 border border-teal-300">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg>
-                                <span>FILTRO AZUL</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center bg-teal-600 text-white">
-                                ✓
-                            </span>
-                        </button>
-                    
-                        <button type="button" onclick="toggleRowAttribute('policarbonato')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition hover:bg-gray-50 text-gray-700 border border-transparent">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg>
-                                <span>POLICARBONATO</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center border border-gray-300">
-                                
-                            </span>
-                        </button>
-                    
-                        <button type="button" onclick="toggleRowAttribute('fotossensivel')" class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition hover:bg-gray-50 text-gray-700 border border-transparent">
-                            <span class="flex items-center gap-2.5">
-                                <svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9" fill="#d1d5db" stroke="#4b5563" stroke-width="1.8"></circle>
-                        <path d="M12 3A9 9 0 0 0 12 21Z" fill="#4b5563"></path>
-                      </svg>
-                                <span>FOTOSSENSÍVEL</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center border border-gray-300">
-                                
-                            </span>
-                        </button>
-                    </div>
+        <div id="popoverOptionsList" class="space-y-1.5"></div>
     </div>
 
     <!-- Modal de Autorização (Senha / PIN de Editor) -->
@@ -1502,7 +475,7 @@
         </div>
     </div>
 
-    <!-- Modal Genérico de Confirmação (Sem uso de alert/confirm nativo) -->
+    <!-- Modal Genérico de Confirmação -->
     <div id="confirmModal" class="hidden no-print fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-gray-100">
             <h3 id="confirmModalTitle" class="text-lg font-extrabold text-gray-900">Confirmar Ação</h3>
@@ -1515,7 +488,7 @@
     </div>
 
     <!-- Toast de Notificação -->
-    <div id="toastNotification" class="no-print fixed bottom-5 right-5 z-50 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2.5">
+    <div id="toastNotification" class="no-print fixed bottom-5 right-5 z-50 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2.5 opacity-0 translate-y-20">
         <span class="w-2 h-2 rounded-full bg-teal-400"></span>
         <span id="toastMessage">Catálogo salvo automaticamente</span>
     </div>
@@ -1617,89 +590,6 @@
                                     price: "R$ 1.290,00"
                                 }
                             ]
-                        },
-                        {
-                            id: "tb_zeiss_vs",
-                            brandName: "ZEISS",
-                            headerColor: "#489ca8",
-                            rows: [
-                                {
-                                    id: "row_4",
-                                    name: "ZEISS CLEARVIEW 1.50",
-                                    attributes: ["ar_azul", "superhidro"],
-                                    spherical: "+6,00/-6,00",
-                                    cylindrical: "0,00/-2,00",
-                                    price: "R$ 950,00"
-                                },
-                                {
-                                    id: "row_5",
-                                    name: "ZEISS CLEARVIEW 1.59",
-                                    attributes: ["policarbonato", "filtro_azul", "superhidro"],
-                                    spherical: "+6,00/-8,00",
-                                    cylindrical: "0,00/-4,00",
-                                    price: "R$ 1.380,00"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: "cat_multi",
-                    name: "MULTIFOCAL",
-                    pageBreakBefore: false,
-                    tables: [
-                        {
-                            id: "tb_varilux_multi",
-                            brandName: "VARILUX / ESSILOR",
-                            headerColor: "#489ca8",
-                            rows: [
-                                {
-                                    id: "row_6",
-                                    name: "VARILUX COMFORT MAX 1.50",
-                                    attributes: ["ar_verde", "superhidro"],
-                                    spherical: "+5,00/-7,00",
-                                    cylindrical: "0,00/-4,00",
-                                    price: "R$ 1.980,00"
-                                },
-                                {
-                                    id: "row_7",
-                                    name: "VARILUX COMFORT MAX 1.59",
-                                    attributes: ["policarbonato", "filtro_azul", "fotossensivel"],
-                                    spherical: "+6,00/-8,00",
-                                    cylindrical: "0,00/-4,00",
-                                    price: "R$ 2.690,00"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: "cat_bi",
-                    name: "BIFOCAL",
-                    pageBreakBefore: false,
-                    tables: [
-                        {
-                            id: "tb_optview_bi",
-                            brandName: "OPTVIEW",
-                            headerColor: "#489ca8",
-                            rows: [
-                                {
-                                    id: "row_8",
-                                    name: "OPTVIEW BIFOCAL TOPO RETO 1.56",
-                                    attributes: ["incolor", "ar_verde"],
-                                    spherical: "+4,00/-6,00",
-                                    cylindrical: "0,00/-2,00",
-                                    price: "R$ 640,00"
-                                },
-                                {
-                                    id: "row_9",
-                                    name: "OPTVIEW BIFOCAL INVISÍVEL 1.59",
-                                    attributes: ["policarbonato", "superhidro"],
-                                    spherical: "+4,00/-6,00",
-                                    cylindrical: "0,00/-2,00",
-                                    price: "R$ 820,00"
-                                }
-                            ]
                         }
                     ]
                 }
@@ -1712,7 +602,9 @@
         const STORAGE_KEY = "otica_lens_catalog_v1";
         const PIN_STORAGE_KEY = "otica_lens_editor_pin";
 
-        let catalogData = loadCatalogFromStorage();
+        // Expondo a variável para ser acessada pelo módulo Firebase
+        window.catalogData = loadCatalogFromStorage();
+        
         let currentMode = "view"; // 'view' | 'edit'
         let isAuthorizedSession = false;
         let activeSearchTerm = "";
@@ -1734,16 +626,22 @@
             return JSON.parse(JSON.stringify(DEFAULT_CATALOG_DATA));
         }
 
+        // FUNÇÃO DE SALVAMENTO ATUALIZADA (Local + Nuvem)
         function saveCatalogToStorage(silent = false) {
             try {
+                // 1. Salva no navegador local (fallback)
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(window.catalogData));
+                
+                // 2. Envia para o Firebase
                 if (window.salvarNaNuvem) {
-		window.salvarNaNuvem(catalogData);
-		}
+                    window.salvarNaNuvem(window.catalogData);
+                }
+                
                 if (!silent) {
-                    showToast("Catálogo salvo automaticamente");
+                    showToast("Catálogo salvo na nuvem!");
                 }
             } catch (e) {
-                console.error("Erro ao salvar no localStorage:", e);
+                console.error("Erro ao salvar dados:", e);
             }
         }
 
@@ -1763,21 +661,22 @@
             });
         }
 
-        function renderCatalog() {
+        // Tornamos renderCatalog global para ser acionado pelo Firebase
+        window.renderCatalog = function() {
             const isEdit = currentMode === "edit";
 
             // Atualiza título e subtítulo principais
             const titleEl = document.getElementById("catalogMainTitle");
             const subEl = document.getElementById("catalogSubtitle");
-            titleEl.innerText = catalogData.title || "Catálogo de Lentes";
-            subEl.innerText = catalogData.subtitle || "Atualizado ao vivo";
+            titleEl.innerText = window.catalogData.title || "Catálogo de Lentes";
+            subEl.innerText = window.catalogData.subtitle || "Atualizado ao vivo";
             titleEl.setAttribute("contenteditable", isEdit ? "true" : "false");
             subEl.setAttribute("contenteditable", isEdit ? "true" : "false");
 
             const container = document.getElementById("categoriesContainer");
             container.innerHTML = "";
 
-            catalogData.categories.forEach((cat, catIndex) => {
+            window.catalogData.categories.forEach((cat, catIndex) => {
                 // Filtra tabelas e linhas se houver busca ou filtro de atributo ativo
                 const filteredTables = cat.tables.map(tb => {
                     const matchingRows = tb.rows.filter(row => {
@@ -1816,7 +715,7 @@
                 const categoryControlsHTML = isEdit ? `
                     <div class="no-print flex items-center justify-center gap-2 mb-2">
                         <button onclick="moveCategory('${cat.id}', -1)" ${catIndex === 0 ? 'disabled class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded"' : 'class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium"'} title="Mover categoria para cima">↑ Subir</button>
-                        <button onclick="moveCategory('${cat.id}', 1)" ${catIndex === catalogData.categories.length - 1 ? 'disabled class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded"' : 'class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium"'} title="Mover categoria para baixo">↓ Descer</button>
+                        <button onclick="moveCategory('${cat.id}', 1)" ${catIndex === window.catalogData.categories.length - 1 ? 'disabled class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded"' : 'class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium"'} title="Mover categoria para baixo">↓ Descer</button>
                         <button onclick="toggleCategoryPageBreak('${cat.id}')" class="px-2.5 py-1 text-xs ${cat.pageBreakBefore ? 'bg-teal-100 text-teal-800' : 'bg-gray-100 text-gray-600'} hover:bg-gray-200 rounded-lg font-medium" title="Iniciar esta categoria em uma nova folha A4">
                             📄 ${cat.pageBreakBefore ? 'Quebra de Página Ativa' : 'Inserir Quebra de Página Acima'}
                         </button>
@@ -2066,7 +965,7 @@
                 roleBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Modo Consulta (Leitor)`;
             }
 
-            renderCatalog();
+            window.renderCatalog();
         }
 
         /********************************************************************
@@ -2074,13 +973,13 @@
          ********************************************************************/
         function updateDocumentHeader(field, value) {
             if (currentMode !== "edit") return;
-            catalogData[field] = value.trim();
+            window.catalogData[field] = value.trim();
             saveCatalogToStorage();
         }
 
         function updateCategoryName(catId, newName) {
             if (currentMode !== "edit") return;
-            const cat = catalogData.categories.find(c => c.id === catId);
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             if (cat) {
                 cat.name = newName.trim().toUpperCase();
                 saveCatalogToStorage();
@@ -2102,7 +1001,7 @@
             if (table) {
                 table.headerColor = newColor;
                 saveCatalogToStorage();
-                renderCatalog();
+                window.renderCatalog();
             }
         }
 
@@ -2181,7 +1080,7 @@
             }
 
             saveCatalogToStorage(true);
-            renderCatalog();
+            window.renderCatalog();
 
             // Atualiza estado visual do popover aberto
             const list = document.getElementById("popoverOptionsList");
@@ -2225,7 +1124,7 @@
             });
 
             saveCatalogToStorage();
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function removeLensRow(catId, tableId, rowId) {
@@ -2233,7 +1132,7 @@
             if (!table) return;
             table.rows = table.rows.filter(r => r.id !== rowId);
             saveCatalogToStorage();
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function moveLensRow(catId, tableId, rowId, direction) {
@@ -2248,12 +1147,12 @@
             table.rows[targetIndex] = temp;
 
             saveCatalogToStorage(true);
-            renderCatalog();
+            window.renderCatalog();
         }
 
         // Adicionar/Remover/Mover Tabelas de Marca
         function addNewBrandTable(catId) {
-            const cat = catalogData.categories.find(c => c.id === catId);
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             if (!cat) return;
 
             cat.tables.push({
@@ -2273,7 +1172,7 @@
             });
 
             saveCatalogToStorage();
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function confirmRemoveBrandTable(catId, tableId) {
@@ -2283,18 +1182,18 @@
                 `Excluir Tabela "${table.brandName}"?`,
                 "Todas as lentes cadastradas dentro desta tabela de marca serão removidas.",
                 () => {
-                    const cat = catalogData.categories.find(c => c.id === catId);
+                    const cat = window.catalogData.categories.find(c => c.id === catId);
                     if (cat) {
                         cat.tables = cat.tables.filter(t => t.id !== tableId);
                         saveCatalogToStorage();
-                        renderCatalog();
+                        window.renderCatalog();
                     }
                 }
             );
         }
 
         function moveBrandTable(catId, tableId, direction) {
-            const cat = catalogData.categories.find(c => c.id === catId);
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             if (!cat) return;
             const index = cat.tables.findIndex(t => t.id === tableId);
             const targetIndex = index + direction;
@@ -2305,12 +1204,12 @@
             cat.tables[targetIndex] = temp;
 
             saveCatalogToStorage(true);
-            renderCatalog();
+            window.renderCatalog();
         }
 
         // Adicionar/Remover/Mover Categorias
         function addNewCategory() {
-            catalogData.categories.push({
+            window.catalogData.categories.push({
                 id: "cat_" + Date.now(),
                 name: "NOVA CATEGORIA",
                 pageBreakBefore: false,
@@ -2334,42 +1233,42 @@
             });
 
             saveCatalogToStorage();
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function confirmRemoveCategory(catId) {
-            const cat = catalogData.categories.find(c => c.id === catId);
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             if (!cat) return;
             openConfirmModal(
                 `Excluir Categoria "${cat.name}"?`,
                 "Todas as tabelas de marcas e lentes desta categoria serão removidas.",
                 () => {
-                    catalogData.categories = catalogData.categories.filter(c => c.id !== catId);
+                    window.catalogData.categories = window.catalogData.categories.filter(c => c.id !== catId);
                     saveCatalogToStorage();
-                    renderCatalog();
+                    window.renderCatalog();
                 }
             );
         }
 
         function moveCategory(catId, direction) {
-            const index = catalogData.categories.findIndex(c => c.id === catId);
+            const index = window.catalogData.categories.findIndex(c => c.id === catId);
             const targetIndex = index + direction;
-            if (index < 0 || targetIndex < 0 || targetIndex >= catalogData.categories.length) return;
+            if (index < 0 || targetIndex < 0 || targetIndex >= window.catalogData.categories.length) return;
 
-            const temp = catalogData.categories[index];
-            catalogData.categories[index] = catalogData.categories[targetIndex];
-            catalogData.categories[targetIndex] = temp;
+            const temp = window.catalogData.categories[index];
+            window.catalogData.categories[index] = window.catalogData.categories[targetIndex];
+            window.catalogData.categories[targetIndex] = temp;
 
             saveCatalogToStorage(true);
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function toggleCategoryPageBreak(catId) {
-            const cat = catalogData.categories.find(c => c.id === catId);
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             if (!cat) return;
             cat.pageBreakBefore = !cat.pageBreakBefore;
             saveCatalogToStorage();
-            renderCatalog();
+            window.renderCatalog();
         }
 
         /********************************************************************
@@ -2383,7 +1282,7 @@
             } else {
                 clearBtn.classList.add("hidden");
             }
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function toggleAttributeFilter(attrKey) {
@@ -2411,7 +1310,7 @@
                 notice.classList.add("hidden");
             }
 
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function clearFilters() {
@@ -2421,7 +1320,7 @@
             document.getElementById("clearSearchBtn").classList.add("hidden");
             document.getElementById("activeFilterNotice").classList.add("hidden");
             document.querySelectorAll(".legend-item").forEach(el => el.classList.remove("active-filter"));
-            renderCatalog();
+            window.renderCatalog();
         }
 
         function togglePageLayout() {
@@ -2432,7 +1331,7 @@
         }
 
         function exportCatalogJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(catalogData, null, 2));
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.catalogData, null, 2));
             const dlAnchor = document.createElement("a");
             dlAnchor.setAttribute("href", dataStr);
             dlAnchor.setAttribute("download", "catalogo-lentes-otica.json");
@@ -2450,9 +1349,9 @@
                 try {
                     const parsed = JSON.parse(e.target.result);
                     if (parsed && Array.isArray(parsed.categories)) {
-                        catalogData = parsed;
+                        window.catalogData = parsed;
                         saveCatalogToStorage();
-                        renderCatalog();
+                        window.renderCatalog();
                         showToast("Catálogo importado com sucesso!");
                     }
                 } catch (err) {
@@ -2467,9 +1366,9 @@
                 "Restaurar Catálogo Original?",
                 "Isso voltará todas as tabelas e valores para o modelo inicial de fábrica.",
                 () => {
-                    catalogData = JSON.parse(JSON.stringify(DEFAULT_CATALOG_DATA));
+                    window.catalogData = JSON.parse(JSON.stringify(DEFAULT_CATALOG_DATA));
                     saveCatalogToStorage();
-                    renderCatalog();
+                    window.renderCatalog();
                     showToast("Catálogo restaurado para o padrão!");
                 }
             );
@@ -2518,7 +1417,7 @@
         });
 
         function findTable(catId, tableId) {
-            const cat = catalogData.categories.find(c => c.id === catId);
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             if (!cat) return null;
             return cat.tables.find(t => t.id === tableId) || null;
         }
@@ -2540,6 +1439,9 @@
             }, 2600);
         }
 
+        // Tornando o showToast global para o script tipo module poder acessar
+        window.showToast = showToast;
+
         // Fecha o popover de atributos ao clicar fora dele
         document.addEventListener("click", (e) => {
             const popover = document.getElementById("attributePopover");
@@ -2551,17 +1453,16 @@
         // Inicialização ao carregar a página
         window.onload = function() {
             renderLegendIcons();
-            renderCatalog();
+            window.renderCatalog();
         };
-    </script> <!-- AQUI: A tag de fechamento que estava faltando! -->
+    </script> 
 
-    <!-- Início do Script do Firebase -->
+    <!-- Script de Integração com o Firebase -->
     <script type="module">
-      // 1. Importações corretas via CDN para o navegador
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-      // Suas credenciais originais
+      // Credenciais do seu banco de dados
       const firebaseConfig = {
         apiKey: "AIzaSyC7UI7RcpNbgJq-9fievyWBb1_Fizzk2g8",
         authDomain: "catalogo-lentes-5d29f.firebaseapp.com",
@@ -2571,44 +1472,46 @@
         appId: "1:268053372248:web:3d2c2aaa4dc8fe8dc2192d"
       };
 
-      // 2. Inicializando o Firebase e o Banco de Dados (db)
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      // Referência do documento na nuvem
+      // Usando o documento "principal" dentro da coleção "catalogo"
       const catalogoDocRef = doc(db, "catalogo", "principal");
 
-      // 3. Escutando mudanças em tempo real
+      // onSnapshot escuta as mudanças em tempo real e atualiza a tela
       onSnapshot(catalogoDocRef, (snapshot) => {
         if (snapshot.exists()) {
           const dadosNuvem = snapshot.data();
           if (dadosNuvem && dadosNuvem.catalogoCompleto) {
-            // Atualiza a variável global original do seu catálogo
-            catalogData = dadosNuvem.catalogoCompleto;
             
-            // Re-renderiza a tela para mostrar os dados atualizados
-            if (typeof renderCatalog === "function") {
-              renderCatalog();
+            // 1. Atualiza a variável que controla o catálogo
+            window.catalogData = dadosNuvem.catalogoCompleto;
+            
+            // 2. Se a função de renderizar existir, desenha tudo na tela
+            if (typeof window.renderCatalog === "function") {
+              window.renderCatalog();
             }
           }
-        } else {
-          // Se for a primeira vez e o Firestore estiver vazio, envia os dados base
-          window.salvarNaNuvem(catalogData);
         }
       }, (erro) => {
         console.error("Erro ao sincronizar com Firestore:", erro);
+        if (erro.message.includes("permissions") || erro.code === "permission-denied") {
+            window.showToast("Erro de permissão no Firebase. As mudanças serão salvas apenas localmente.");
+        }
       });
 
-      // 4. Função global que conecta as suas edições à nuvem
+      // Função acionada toda vez que você altera, cria ou exclui algo no layout
       window.salvarNaNuvem = async function(novosDados) {
         try {
           await setDoc(catalogoDocRef, {
             catalogoCompleto: novosDados,
             atualizadoEm: new Date().toISOString()
           }, { merge: true });
-          console.log("Catálogo salvo na nuvem com sucesso!");
         } catch (e) {
           console.error("Erro ao salvar no Firebase:", e);
+          if (e.message.includes("permissions") || e.code === "permission-denied") {
+             window.showToast("Nuvem bloqueada. Salvo apenas no dispositivo.");
+          }
         }
       };
     </script>
