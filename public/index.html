@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Lentes - Sistema de Gestão Ótica</title>
+    <title>Catálogo de Lentes - Óticas Duo</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter & Nunito (para fidelidade tipográfica da logo Óticas Duo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-page: #f2f4f7;
-            --brand-teal: #489ca8;
+            --brand-duo: #43aab8;
+            --brand-duo-dark: #358a96;
+            --brand-duo-light: #eef8fa;
             --subhead-gray: #e2e4e7;
             --border-table: #9ca3af;
         }
@@ -59,8 +62,8 @@
             border-radius: 22px;
             border: 1.5px solid #d1d5db;
             padding: 1.35rem 2rem;
-            max-width: 820px;
-            margin: 0 auto 3.25rem auto;
+            max-width: 840px;
+            margin: 0 auto 1.5rem auto;
             background: #ffffff;
         }
 
@@ -73,10 +76,11 @@
             letter-spacing: 0.03em;
             color: #1f2937;
             cursor: pointer;
-            padding: 0.35rem 0.65rem;
+            padding: 0.35rem 0.7rem;
             border-radius: 9999px;
             transition: all 0.15s ease;
             user-select: none;
+            border: 1.5px solid transparent;
         }
 
         .legend-item:hover {
@@ -84,8 +88,38 @@
         }
 
         .legend-item.active-filter {
-            background-color: #e0f2fe;
-            outline: 2px solid #38bdf8;
+            background-color: var(--brand-duo-light);
+            border-color: var(--brand-duo);
+            color: #1e5259;
+            box-shadow: 0 1px 3px rgba(67, 170, 184, 0.18);
+        }
+
+        /* Botões de Filtro de Categoria */
+        .cat-filter-btn {
+            padding: 0.5rem 1.15rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.18s ease;
+            border: 1.5px solid #d1d5db;
+            background-color: #ffffff;
+            color: #4b5563;
+            cursor: pointer;
+        }
+
+        .cat-filter-btn:hover {
+            border-color: var(--brand-duo);
+            color: var(--brand-duo-dark);
+            background-color: var(--brand-duo-light);
+        }
+
+        .cat-filter-btn.active {
+            background-color: var(--brand-duo);
+            border-color: var(--brand-duo);
+            color: #ffffff;
+            box-shadow: 0 3px 10px -2px rgba(67, 170, 184, 0.45);
         }
 
         /* Título de Categoria (ex: VISÃO SIMPLES) */
@@ -111,7 +145,7 @@
 
         /* Cabeçalho Colorido da Marca (ex: OPTVIEW) */
         .brand-header {
-            background-color: #489ca8;
+            background-color: var(--brand-duo);
             color: #ffffff;
             text-align: center;
             padding: 0.95rem 1.5rem;
@@ -147,7 +181,7 @@
             background-color: #fafbfc;
         }
 
-        /* Divisória vertical sutil entre Esférico, Cilíndrico e Valor como na imagem */
+        /* Divisória vertical sutil entre Esférico, Cilíndrico e Valor */
         .cell-divider-left {
             position: relative;
         }
@@ -173,14 +207,14 @@
         }
 
         [contenteditable="true"]:hover {
-            background-color: rgba(59, 130, 246, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3);
+            background-color: rgba(67, 170, 184, 0.1);
+            box-shadow: inset 0 0 0 1px rgba(67, 170, 184, 0.4);
         }
 
         [contenteditable="true"]:focus {
             background-color: #ffffff;
             color: #111827;
-            box-shadow: 0 0 0 2px #3b82f6;
+            box-shadow: 0 0 0 2px var(--brand-duo);
         }
 
         .brand-header [contenteditable="true"]:focus {
@@ -243,7 +277,7 @@
             }
         }
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.bottom-5{bottom:1.25rem}.left-2\.5{left:0.625rem}.right-2{right:0.5rem}.right-5{right:1.25rem}.top-0{top:0px}.top-1\/2{top:50%}.right-3{right:0.75rem}.z-30{z-index:30}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1\.5{margin-bottom:0.375rem}.mb-2{margin-bottom:0.5rem}.mb-2\.5{margin-bottom:0.625rem}.mb-3\.5{margin-bottom:0.875rem}.mb-4{margin-bottom:1rem}.mb-8{margin-bottom:2rem}.mb-9{margin-bottom:2.25rem}.ml-2{margin-left:0.5rem}.mt-1{margin-top:0.25rem}.mt-1\.5{margin-top:0.375rem}.mt-12{margin-top:3rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.mb-12{margin-bottom:3rem}.ml-1\.5{margin-left:0.375rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.hidden{display:none}.h-12{height:3rem}.h-2{height:0.5rem}.h-3\.5{height:0.875rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.min-h-screen{min-height:100vh}.min-h-\[24px\]{min-height:24px}.w-12{width:3rem}.w-2{width:0.5rem}.w-3\.5{width:0.875rem}.w-4{width:1rem}.w-44{width:11rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-72{width:18rem}.w-full{width:100%}.w-\[15\%\]{width:15%}.w-\[16\%\]{width:16%}.w-\[20\%\]{width:20%}.w-\[34\%\]{width:34%}.w-24{width:6rem}.max-w-5xl{max-width:64rem}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.shrink-0{flex-shrink:0}.border-collapse{border-collapse:collapse}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-20{--tw-translate-y:5rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.cursor-pointer{cursor:pointer}.cursor-not-allowed{cursor:not-allowed}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-2\.5{gap:0.625rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-x-12{column-gap:3rem}.gap-x-2{column-gap:0.5rem}.gap-y-2{row-gap:0.5rem}.gap-y-3{row-gap:0.75rem}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.self-start{align-self:flex-start}.overflow-x-auto{overflow-x:auto}.whitespace-nowrap{white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded{border-radius:0.25rem}.border{border-width:1px}.border-0{border-width:0px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-t-2{border-top-width:2px}.border-l{border-left-width:1px}.border-dashed{border-style:dashed}.border-amber-200\/80{border-color:rgb(253 230 138 / 0.8)}.border-gray-100{--tw-border-opacity:1;border-color:rgb(243 244 246 / var(--tw-border-opacity, 1))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))}.border-gray-200\/70{border-color:rgb(229 231 235 / 0.7)}.border-gray-200\/80{border-color:rgb(229 231 235 / 0.8)}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.border-transparent{border-color:transparent}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77 / var(--tw-border-opacity, 1))}.border-teal-500\/60{border-color:rgb(20 184 166 / 0.6)}.border-teal-300{--tw-border-opacity:1;border-color:rgb(94 234 212 / var(--tw-border-opacity, 1))}.bg-\[\#f0f2f5\]{--tw-bg-opacity:1;background-color:rgb(240 242 245 / var(--tw-bg-opacity, 1))}.bg-amber-200{--tw-bg-opacity:1;background-color:rgb(253 230 138 / var(--tw-bg-opacity, 1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235 / var(--tw-bg-opacity, 1))}.bg-amber-900{--tw-bg-opacity:1;background-color:rgb(120 53 15 / var(--tw-bg-opacity, 1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity, 1))}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/50{background-color:rgb(15 23 42 / 0.5)}.bg-teal-400{--tw-bg-opacity:1;background-color:rgb(45 212 191 / var(--tw-bg-opacity, 1))}.bg-teal-50{--tw-bg-opacity:1;background-color:rgb(240 253 250 / var(--tw-bg-opacity, 1))}.bg-teal-600{--tw-bg-opacity:1;background-color:rgb(13 148 136 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-white\/90{background-color:rgb(255 255 255 / 0.9)}.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199 / var(--tw-bg-opacity, 1))}.bg-amber-600{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.bg-black\/20{background-color:rgb(0 0 0 / 0.2)}.bg-gray-50\/80{background-color:rgb(249 250 251 / 0.8)}.bg-teal-50\/40{background-color:rgb(240 253 250 / 0.4)}.bg-transparent{background-color:transparent}.p-1{padding:0.25rem}.p-1\.5{padding:0.375rem}.p-2\.5{padding:0.625rem}.p-3\.5{padding:0.875rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-0{padding:0px}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-3\.5{padding-left:0.875rem;padding-right:0.875rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.pb-16{padding-bottom:4rem}.pb-2\.5{padding-bottom:0.625rem}.pl-8{padding-left:2rem}.pr-7{padding-right:1.75rem}.pt-2\.5{padding-top:0.625rem}.pt-6{padding-top:1.5rem}.pl-3{padding-left:0.75rem}.pl-6{padding-left:1.5rem}.pr-3{padding-right:0.75rem}.pr-6{padding-right:1.5rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-\[13\.5px\]{font-size:13.5px}.text-\[15px\]{font-size:15px}.text-\[11px\]{font-size:11px}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.italic{font-style:italic}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-\[\#222222\]{--tw-text-opacity:1;color:rgb(34 34 34 / var(--tw-text-opacity, 1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.text-red-600{--tw-text-opacity:1;color:rgb(220 38 38 / var(--tw-text-opacity, 1))}.text-teal-600{--tw-text-opacity:1;color:rgb(13 148 136 / var(--tw-text-opacity, 1))}.text-teal-700{--tw-text-opacity:1;color:rgb(15 118 110 / var(--tw-text-opacity, 1))}.text-teal-800{--tw-text-opacity:1;color:rgb(17 94 89 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-red-200{--tw-text-opacity:1;color:rgb(254 202 202 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-white\/40{color:rgb(255 255 255 / 0.4)}.text-white\/90{color:rgb(255 255 255 / 0.9)}.text-teal-900{--tw-text-opacity:1;color:rgb(19 78 74 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.opacity-0{opacity:0}.opacity-25{opacity:0.25}.opacity-30{opacity:0.3}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:border-teal-600:hover{--tw-border-opacity:1;border-color:rgb(13 148 136 / var(--tw-border-opacity, 1))}.hover\:bg-amber-950:hover{--tw-bg-opacity:1;background-color:rgb(69 26 3 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-100:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-200:hover{--tw-bg-opacity:1;background-color:rgb(229 231 235 / var(--tw-bg-opacity, 1))}.hover\:bg-red-100:hover{--tw-bg-opacity:1;background-color:rgb(254 226 226 / var(--tw-bg-opacity, 1))}.hover\:bg-red-700:hover{--tw-bg-opacity:1;background-color:rgb(185 28 28 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-900:hover{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.hover\:bg-teal-700:hover{--tw-bg-opacity:1;background-color:rgb(15 118 110 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-50:hover{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.hover\:bg-red-50:hover{--tw-bg-opacity:1;background-color:rgb(254 242 242 / var(--tw-bg-opacity, 1))}.hover\:bg-teal-100:hover{--tw-bg-opacity:1;background-color:rgb(204 251 241 / var(--tw-bg-opacity, 1))}.hover\:bg-teal-50:hover{--tw-bg-opacity:1;background-color:rgb(240 253 250 / var(--tw-bg-opacity, 1))}.hover\:text-gray-600:hover{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.hover\:text-gray-700:hover{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.hover\:text-gray-800:hover{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.hover\:text-teal-950:hover{--tw-text-opacity:1;color:rgb(4 47 46 / var(--tw-text-opacity, 1))}.hover\:text-gray-900:hover{--tw-text-opacity:1;color:rgb(17 24 39 / var(--tw-text-opacity, 1))}.hover\:text-red-700:hover{--tw-text-opacity:1;color:rgb(185 28 28 / var(--tw-text-opacity, 1))}.hover\:text-teal-200:hover{--tw-text-opacity:1;color:rgb(153 246 228 / var(--tw-text-opacity, 1))}.hover\:text-teal-800:hover{--tw-text-opacity:1;color:rgb(17 94 89 / var(--tw-text-opacity, 1))}.hover\:text-teal-900:hover{--tw-text-opacity:1;color:rgb(19 78 74 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.hover\:shadow-lg:hover{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.focus\:border-teal-600:focus{--tw-border-opacity:1;border-color:rgb(13 148 136 / var(--tw-border-opacity, 1))}.focus\:bg-white:focus{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-teal-500\/20:focus{--tw-ring-color:rgb(20 184 166 / 0.2)}@media (min-width: 640px){.sm\:inline{display:inline}.sm\:w-56{width:14rem}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:self-auto{align-self:auto}.sm\:p-8{padding:2rem}.sm\:text-\[34px\]{font-size:34px}}</style></head>
+</head>
 <body class="min-h-screen pb-16">
 
     <!-- Barra Superior de Ferramentas (Apenas Sistema / Oculta na Impressão) -->
@@ -251,7 +285,9 @@
         <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
             <!-- Indicador de Perfil e Status -->
             <div class="flex items-center gap-2.5">
-                <span id="roleBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300"><span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span> Modo Editor (Autorizado)</span>
+                <span id="roleBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Modo Consulta (Leitor)
+                </span>
                 <span id="saveStatus" class="text-xs text-gray-400 hidden sm:inline">Salvo automaticamente na nuvem</span>
             </div>
 
@@ -259,11 +295,11 @@
             <div class="flex items-center flex-wrap gap-2">
                 <!-- Busca por Lente ou Marca -->
                 <div class="relative">
-                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Buscar lente, índice, marca..." class="pl-8 pr-7 py-1.5 text-xs bg-gray-100 border border-transparent focus:bg-white focus:border-teal-600 rounded-full outline-none w-44 sm:w-56 transition-all">
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Buscar lente, índice, marca..." class="pl-8 pr-7 py-1.5 text-xs bg-gray-100 border border-transparent focus:bg-white focus:border-[#43aab8] rounded-full outline-none w-44 sm:w-56 transition-all">
                     <svg class="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
-                    <button id="clearSearchBtn" onclick="clearFilters()" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden">
+                    <button id="clearSearchBtn" onclick="clearFilters()" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 hidden" title="Limpar busca e filtros">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
@@ -275,7 +311,7 @@
                 </button>
 
                 <!-- Botões Exclusivos do Editor (Senha, Backup, Restaurar) -->
-                <div id="editorToolbarBtns" class="items-center gap-1.5 flex">
+                <div id="editorToolbarBtns" class="items-center gap-1.5 hidden">
                     <button onclick="openPinSettingsModal()" class="px-2.5 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full transition flex items-center gap-1" title="Alterar PIN de autorização">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                         <span>PIN</span>
@@ -293,7 +329,7 @@
                 </div>
 
                 <!-- Botão Imprimir / Gerar PDF -->
-                <button onclick="window.print()" class="px-3.5 py-1.5 text-xs font-semibold text-white bg-slate-800 hover:bg-slate-900 rounded-full transition flex items-center gap-1.5 shadow-sm">
+                <button onclick="window.print()" class="px-3.5 py-1.5 text-xs font-semibold text-white bg-[#43aab8] hover:bg-[#358a96] rounded-full transition flex items-center gap-1.5 shadow-sm">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                     Imprimir / PDF
                 </button>
@@ -301,19 +337,44 @@
         </div>
     </header>
 
-    <!-- Folha Principal do Catálogo (Design Idêntico à Imagem) -->
+    <!-- Folha Principal do Catálogo -->
     <main class="catalog-sheet" id="catalogDocument">
         
-        <!-- Cabeçalho do Catálogo -->
+        <!-- Cabeçalho do Catálogo com Identidade Visual Óticas Duo -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-9">
-            <div>
-                <h1 id="catalogMainTitle" class="text-3xl sm:text-[34px] font-extrabold text-[#222222] tracking-tight leading-tight" onblur="updateDocumentHeader('title', this.innerText)" contenteditable="true">Catálogo de Lentes</h1>
-                <p id="catalogSubtitle" class="text-sm text-gray-400 font-medium mt-1" onblur="updateDocumentHeader('subtitle', this.innerText)" contenteditable="true">Atualizado ao vivo</p>
+            <div class="flex items-center gap-4 sm:gap-5">
+                <!-- Logo Vetorial Oficial Óticas Duo (#43aab8) -->
+                <div class="shrink-0 select-none" title="Óticas Duo">
+                    <svg class="h-14 sm:h-16 w-auto" viewBox="0 0 270 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Texto Superior "Óticas" -->
+                        <text x="12" y="54" fill="#43aab8" font-family="'Nunito', sans-serif" font-weight="800" font-size="52" letter-spacing="-0.5">Óticas</text>
+                        <!-- Letra D -->
+                        <path d="M16 68H56C83 68 101 85 101 109.5C101 134 83 151 56 151H16C11.5 151 9 148.5 9 144V75C9 70.5 11.5 68 16 68ZM28 84V135H55C71.5 135 82 124.5 82 109.5C82 94.5 71.5 84 55 84H28Z" fill="#43aab8"/>
+                        <!-- Letra u -->
+                        <path d="M116 93C116 88 120 84 125 84C130 84 134 88 134 93V123C134 132 139.5 137.5 148 137.5C156.5 137.5 162 132 162 123V93C162 88 166 84 171 84C176 84 180 88 180 93V142C180 147 176 151 171 151C166.5 151 163 148 162.5 143.5C157.5 149 150.5 152 142 152C126.5 152 116 141.5 116 125V93Z" fill="#43aab8"/>
+                        <!-- Letra o com Óculos Interno -->
+                        <circle cx="226" cy="117.5" r="34.5" fill="#43aab8"/>
+                        <circle cx="226" cy="117.5" r="19.5" fill="#ffffff"/>
+                        <!-- Óculos dentro do 'o' -->
+                        <path d="M205 114.5H247" stroke="#43aab8" stroke-width="3.2" stroke-linecap="round"/>
+                        <circle cx="218" cy="115.5" r="5.3" fill="#43aab8"/>
+                        <circle cx="234" cy="115.5" r="5.3" fill="#43aab8"/>
+                    </svg>
+                </div>
+
+                <!-- Divisória Vertical Sutil -->
+                <div class="h-11 w-[1.5px] bg-gray-200 hidden sm:block"></div>
+
+                <!-- Título e Subtítulo Editáveis -->
+                <div>
+                    <h1 id="catalogMainTitle" class="text-2xl sm:text-[32px] font-extrabold text-[#222222] tracking-tight leading-tight" onblur="updateDocumentHeader('title', this.innerText)" contenteditable="false">Catálogo de Lentes</h1>
+                    <p id="catalogSubtitle" class="text-sm text-gray-400 font-medium mt-0.5" onblur="updateDocumentHeader('subtitle', this.innerText)" contenteditable="false">Atualizado ao vivo</p>
+                </div>
             </div>
 
-            <!-- Pílula Seletora: Visualizar / Editar (Fiel à imagem) -->
+            <!-- Pílula Seletora: Visualizar / Editar -->
             <div class="no-print inline-flex items-center bg-[#f0f2f5] p-1.5 rounded-full border border-gray-200/80 self-start sm:self-auto">
-                <button id="btnModeView" onclick="switchMode('view')" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800">
+                <button id="btnModeView" onclick="switchMode('view')" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all bg-white text-gray-900 shadow-sm">
                     <!-- Ícone Olho -->
                     <svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -321,7 +382,7 @@
                     </svg>
                     <span>Visualizar</span>
                 </button>
-                <button id="btnModeEdit" onclick="requestEditMode()" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all bg-white text-gray-900 shadow-sm">
+                <button id="btnModeEdit" onclick="requestEditMode()" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800">
                     <!-- Ícone Lápis -->
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
@@ -331,70 +392,77 @@
             </div>
         </div>
 
-        <!-- Caixa de Legenda de Atributos (Idêntica à Imagem + Filtro Clicável) -->
+        <!-- Caixa de Legenda de Atributos (Seleção Múltipla com Lógica "OU" + Estrela de Destaque) -->
         <section class="legend-box" aria-label="Legenda de Atributos das Lentes">
             <!-- Linha 1: 5 atributos -->
             <div class="flex flex-wrap items-center justify-between gap-y-3 gap-x-2 mb-3.5">
                 <div class="legend-item" data-attr="ar_azul" onclick="toggleAttributeFilter('ar_azul')" title="Clique para filtrar por AR AZUL">
-                    <span class=" attr-icon-slot" data-icon="ar_azul"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#8ec5fc"></circle></svg></span>
+                    <span class="attr-icon-slot" data-icon="ar_azul"></span>
                     <span>AR AZUL</span>
                 </div>
                 <div class="legend-item" data-attr="incolor" onclick="toggleAttributeFilter('incolor')" title="Clique para filtrar por INCOLOR">
-                    <span class="attr-icon-slot" data-icon="incolor"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9" fill="#ffffff" stroke="#9ca3af" stroke-width="1.8"></circle></svg></span>
+                    <span class="attr-icon-slot" data-icon="incolor"></span>
                     <span>INCOLOR</span>
                 </div>
                 <div class="legend-item" data-attr="superhidro" onclick="toggleAttributeFilter('superhidro')" title="Clique para filtrar por SUPERHIDRO">
-                    <span class="attr-icon-slot" data-icon="superhidro"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5C12 2.5 5.5 10.2 5.5 14.8C5.5 18.5 8.4 21.5 12 21.5C15.6 21.5 18.5 18.5 18.5 14.8C18.5 10.2 12 2.5 12 2.5Z" fill="#4a90e2"></path>
-                        <path d="M9.5 16.5C8.5 15.5 8.3 13.8 8.8 12.2" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" fill="none"></path>
-                      </svg></span>
+                    <span class="attr-icon-slot" data-icon="superhidro"></span>
                     <span>SUPERHIDRO</span>
                 </div>
                 <div class="legend-item" data-attr="ar_verde" onclick="toggleAttributeFilter('ar_verde')" title="Clique para filtrar por AR VERDE">
-                    <span class="attr-icon-slot" data-icon="ar_verde"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0"><circle cx="12" cy="12" r="9.5" fill="#76e4b3"></circle></svg></span>
+                    <span class="attr-icon-slot" data-icon="ar_verde"></span>
                     <span>AR VERDE</span>
                 </div>
                 <div class="legend-item" data-attr="filtro_azul" onclick="toggleAttributeFilter('filtro_azul')" title="Clique para filtrar por FILTRO AZUL">
-                    <span class="attr-icon-slot" data-icon="filtro_azul"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9.5" fill="#2b7de9"></circle>
-                        <path d="M6.5 12C7.8 9.2 9.8 8 12 8C14.2 8 16.2 9.2 17.5 12C16.2 14.8 14.2 16 12 16C9.8 16 7.8 14.8 6.5 12Z" stroke="#ffffff" stroke-width="1.6" fill="none"></path>
-                        <circle cx="12" cy="12" r="2.1" fill="#ffffff"></circle>
-                      </svg></span>
+                    <span class="attr-icon-slot" data-icon="filtro_azul"></span>
                     <span>FILTRO AZUL</span>
                 </div>
             </div>
 
-            <!-- Linha 2: 2 atributos centralizados -->
-            <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-2">
+            <!-- Linha 2: 3 atributos centralizados (incluindo Destaque / Mais Vendidas) -->
+            <div class="flex flex-wrap items-center justify-center gap-x-8 sm:gap-x-12 gap-y-2">
                 <div class="legend-item" data-attr="policarbonato" onclick="toggleAttributeFilter('policarbonato')" title="Clique para filtrar por POLICARBONATO">
-                    <span class="attr-icon-slot" data-icon="policarbonato"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <path d="M12 2.5L4.5 5.8V11.5C4.5 16.5 7.7 20.9 12 22.2C16.3 20.9 19.5 16.5 19.5 11.5V5.8L12 2.5Z" fill="#4b5563"></path>
-                        <path d="M12 4.3V20.3C15.3 19.1 17.7 15.5 17.7 11.5V7L12 4.3Z" fill="#9ca3af"></path>
-                      </svg></span>
+                    <span class="attr-icon-slot" data-icon="policarbonato"></span>
                     <span>POLICARBONATO</span>
                 </div>
                 <div class="legend-item" data-attr="fotossensivel" onclick="toggleAttributeFilter('fotossensivel')" title="Clique para filtrar por FOTOSSENSÍVEL">
-                    <span class="attr-icon-slot" data-icon="fotossensivel"><svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
-                        <circle cx="12" cy="12" r="9" fill="#d1d5db" stroke="#4b5563" stroke-width="1.8"></circle>
-                        <path d="M12 3A9 9 0 0 0 12 21Z" fill="#4b5563"></path>
-                      </svg></span>
+                    <span class="attr-icon-slot" data-icon="fotossensivel"></span>
                     <span>FOTOSSENSÍVEL</span>
+                </div>
+                <div class="legend-item" data-attr="destaque" onclick="toggleAttributeFilter('destaque')" title="Clique para filtrar as lentes MAIS VENDIDAS / DESTAQUE">
+                    <span class="attr-icon-slot" data-icon="destaque"></span>
+                    <span>MAIS VENDIDAS</span>
                 </div>
             </div>
 
             <!-- Indicador de filtro ativo por atributo -->
             <div id="activeFilterNotice" class="no-print mt-3 pt-2.5 border-t border-gray-100 text-center hidden">
-                <span class="text-xs text-teal-700 font-medium" id="activeFilterText">Exibindo apenas lentes com o atributo: FILTRO AZUL</span>
-                <button onclick="clearFilters()" class="ml-2 text-xs font-bold text-teal-800 underline hover:text-teal-950">Mostrar todas</button>
+                <span class="text-xs text-[#358a96] font-medium" id="activeFilterText"></span>
+                <button onclick="clearFilters()" class="ml-2 text-xs font-bold text-[#27666f] underline hover:text-gray-900">Mostrar todas</button>
             </div>
         </section>
+
+        <!-- Barra de Filtragem de Categorias (Logo abaixo da legenda de atributos) -->
+        <div class="no-print flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10" aria-label="Filtro de Categorias de Lentes">
+            <button type="button" onclick="setCategoryFilter('ALL')" data-cat-filter="ALL" class="cat-filter-btn active">
+                Todas as Categorias
+            </button>
+            <button type="button" onclick="setCategoryFilter('VISÃO SIMPLES')" data-cat-filter="VISÃO SIMPLES" class="cat-filter-btn">
+                Visão Simples
+            </button>
+            <button type="button" onclick="setCategoryFilter('MULTIFOCAIS')" data-cat-filter="MULTIFOCAIS" class="cat-filter-btn">
+                Multifocais
+            </button>
+            <button type="button" onclick="setCategoryFilter('BIFOCAIS')" data-cat-filter="BIFOCAIS" class="cat-filter-btn">
+                Bifocais
+            </button>
+        </div>
 
         <!-- Barra de Aviso do Modo Editor -->
         <div id="editModeBanner" class="no-print mb-8 p-3.5 rounded-2xl bg-amber-50 border border-amber-200/80 flex flex-wrap items-center justify-between gap-3 text-xs text-amber-900 hidden">
             <div class="flex items-center gap-2.5">
                 <span class="flex h-6 w-6 items-center justify-center rounded-full bg-amber-200 text-amber-900 font-bold">✎</span>
                 <div>
-                    <strong class="font-semibold">Modo de Edição Desbloqueado:</strong> Clique em qualquer texto (nome, esférico, cilíndrico, valor ou marca) para editar. Clique nos ícones de <strong>Atributos</strong> para marcar/desmarcar tratamentos.
+                    <strong class="font-semibold">Modo de Edição Desbloqueado:</strong> Clique em qualquer texto para editar. Clique na <strong>estrela (★)</strong> ao lado do nome da lente para destacá-la como mais vendida, ou nos ícones de <strong>Atributos</strong> para alterar tratamentos.
                 </div>
             </div>
             <button onclick="lockAndExitEditMode()" class="px-3 py-1.5 rounded-lg bg-amber-900 text-white font-semibold hover:bg-amber-950 transition shrink-0">
@@ -407,18 +475,18 @@
 
         <!-- Botão de Adicionar Nova Categoria de Lentes (Visível apenas no Modo Editor) -->
         <div id="addCategoryWrapper" class="no-print mt-12 pt-6 border-t-2 border-dashed border-gray-200 text-center hidden">
-            <button onclick="addNewCategory()" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all">
+            <button onclick="addNewCategory()" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#43aab8] hover:bg-[#358a96] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
-                <span>Adicionar Nova Categoria (ex: Ocupacional / Solar / Contato)</span>
+                <span>Adicionar Nova Categoria (ex: Multifocais / Bifocais / Ocupacional)</span>
             </button>
         </div>
 
     </main>
 
     <!-- Popover Flutuante para Selecionar os Atributos de uma Lente -->
-    <div id="attributePopover" class="no-print fixed z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-72 hidden" style="left: 506.588px; top: 156.85px;">
+    <div id="attributePopover" class="no-print fixed z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-72 hidden">
         <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-gray-100">
-            <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Atributos da Lente</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-gray-500">Atributos e Destaque</span>
             <button onclick="closeAttributePopover()" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
@@ -429,7 +497,7 @@
     <!-- Modal de Autorização (Senha / PIN de Editor) -->
     <div id="authModal" class="no-print fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-100 animate-fade-in">
-            <div class="w-12 h-12 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#eef8fa] text-[#43aab8] flex items-center justify-center mb-4">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                 </svg>
@@ -439,19 +507,19 @@
             
             <form onsubmit="handleAuthSubmit(event)" class="mt-5">
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Senha / PIN de Acesso</label>
-                <input type="password" id="pinInput" placeholder="Digite o PIN..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-500/20 outline-none text-base font-semibold tracking-widest" required="">
+                <input type="password" id="pinInput" placeholder="Digite o PIN..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#43aab8] focus:ring-2 focus:ring-[#43aab8]/20 outline-none text-base font-semibold tracking-widest" required="">
                 <p id="authErrorMsg" class="hidden text-xs font-semibold text-red-600 mt-2">PIN incorreto. Tente novamente.</p>
                 
                 <div class="mt-3 p-2.5 rounded-xl bg-gray-50 border border-gray-200/70 text-xs text-gray-500 flex items-center justify-between">
                     <span>💡 PIN padrão para demonstração: <strong class="text-gray-800 font-mono">1234</strong></span>
-                    <button type="button" onclick="document.getElementById('pinInput').value='1234'" class="text-teal-700 font-semibold hover:underline">Preencher</button>
+                    <button type="button" onclick="document.getElementById('pinInput').value='1234'" class="text-[#358a96] font-semibold hover:underline">Preencher</button>
                 </div>
 
                 <div class="flex items-center justify-end gap-2.5 mt-6">
                     <button type="button" onclick="closeAuthModal()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-100 transition">
                         Cancelar
                     </button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-teal-600 hover:bg-teal-700 text-white shadow-sm transition">
+                    <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#43aab8] hover:bg-[#358a96] text-white shadow-sm transition">
                         Desbloquear Edição
                     </button>
                 </div>
@@ -466,10 +534,10 @@
             <p class="text-xs text-gray-500 mt-1">Defina a nova senha necessária para desbloquear o modo de edição neste navegador.</p>
             <form onsubmit="saveNewPin(event)" class="mt-4">
                 <label class="block text-xs font-bold uppercase text-gray-600 mb-1.5">Novo PIN / Senha</label>
-                <input type="text" id="newPinInput" required="" minlength="3" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-teal-600 outline-none text-sm font-semibold">
+                <input type="text" id="newPinInput" required="" minlength="3" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#43aab8] outline-none text-sm font-semibold">
                 <div class="flex justify-end gap-2 mt-5">
                     <button type="button" onclick="closePinSettingsModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:bg-gray-100">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700">Salvar PIN</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#43aab8] text-white hover:bg-[#358a96]">Salvar PIN</button>
                 </div>
             </form>
         </div>
@@ -489,13 +557,13 @@
 
     <!-- Toast de Notificação -->
     <div id="toastNotification" class="no-print fixed bottom-5 right-5 z-50 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2.5 opacity-0 translate-y-20">
-        <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+        <span class="w-2 h-2 rounded-full bg-[#43aab8]"></span>
         <span id="toastMessage">Catálogo salvo automaticamente</span>
     </div>
 
     <script>
         /********************************************************************
-         * 1. DEFINIÇÃO DOS ÍCONES SVG FIÉIS À IMAGEM DE REFERÊNCIA
+         * 1. DEFINIÇÃO DOS ÍCONES SVG FIÉIS À IMAGEM DE REFERÊNCIA + ESTRELA
          ********************************************************************/
         const ATTRIBUTES_CONFIG = {
             ar_azul: {
@@ -545,11 +613,18 @@
                         <circle cx="12" cy="12" r="9" fill="#d1d5db" stroke="#4b5563" stroke-width="1.8"/>
                         <path d="M12 3A9 9 0 0 0 12 21Z" fill="#4b5563"/>
                       </svg>`
+            },
+            destaque: {
+                id: 'destaque',
+                label: 'MAIS VENDIDAS',
+                svg: `<svg width="20" height="20" viewBox="0 0 24 24" class="shrink-0">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#f59e0b" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/>
+                      </svg>`
             }
         };
 
         /********************************************************************
-         * 2. DADOS INICIAIS PADRÃO (IDÊNTICOS À FOTO + CATEGORIAS EXTRAS)
+         * 2. DADOS INICIAIS PADRÃO
          ********************************************************************/
         const DEFAULT_CATALOG_DATA = {
             title: "Catálogo de Lentes",
@@ -563,12 +638,12 @@
                         {
                             id: "tb_optview_vs",
                             brandName: "OPTVIEW",
-                            headerColor: "#489ca8",
+                            headerColor: "#43aab8",
                             rows: [
                                 {
                                     id: "row_1",
                                     name: "OPTVIEW VS 1.56",
-                                    attributes: ["fotossensivel", "ar_verde"],
+                                    attributes: ["fotossensivel", "ar_verde", "destaque"],
                                     spherical: "+4,00/-8,00",
                                     cylindrical: "0,00/-2,00",
                                     price: "R$ 780,00"
@@ -602,13 +677,13 @@
         const STORAGE_KEY = "otica_lens_catalog_v1";
         const PIN_STORAGE_KEY = "otica_lens_editor_pin";
 
-        // Expondo a variável para ser acessada pelo módulo Firebase
         window.catalogData = loadCatalogFromStorage();
         
         let currentMode = "view"; // 'view' | 'edit'
         let isAuthorizedSession = false;
         let activeSearchTerm = "";
-        let activeAttributeFilter = null;
+        let activeAttributeFilters = []; // Permite múltiplos atributos (lógica abrangente OU)
+        let activeCategoryFilter = "ALL"; // 'ALL' | 'VISÃO SIMPLES' | 'MULTIFOCAIS' | 'BIFOCAIS'
         let isPagedLayout = false;
 
         // Referência para qual linha está com o popover de atributos aberto
@@ -626,13 +701,10 @@
             return JSON.parse(JSON.stringify(DEFAULT_CATALOG_DATA));
         }
 
-        // FUNÇÃO DE SALVAMENTO ATUALIZADA (Local + Nuvem)
         function saveCatalogToStorage(silent = false) {
             try {
-                // 1. Salva no navegador local (fallback)
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(window.catalogData));
                 
-                // 2. Envia para o Firebase
                 if (window.salvarNaNuvem) {
                     window.salvarNaNuvem(window.catalogData);
                 }
@@ -649,6 +721,16 @@
             return localStorage.getItem(PIN_STORAGE_KEY) || "1234";
         }
 
+        // Helper para verificar se uma lente está marcada como destaque (Mais Vendida)
+        function isRowFeatured(row) {
+            return Boolean(row.featured || (Array.isArray(row.attributes) && row.attributes.includes('destaque')));
+        }
+
+        // Helper para normalizar nomes de categorias (ignora acentos/maiúsculas na comparação)
+        function normalizeCategoryString(str) {
+            return (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toUpperCase();
+        }
+
         /********************************************************************
          * 4. RENDERIZAÇÃO DA LEGENDA E DO CATÁLOGO
          ********************************************************************/
@@ -661,7 +743,6 @@
             });
         }
 
-        // Tornamos renderCatalog global para ser acionado pelo Firebase
         window.renderCatalog = function() {
             const isEdit = currentMode === "edit";
 
@@ -676,8 +757,21 @@
             const container = document.getElementById("categoriesContainer");
             container.innerHTML = "";
 
+            let visibleCategoriesCount = 0;
+
             window.catalogData.categories.forEach((cat, catIndex) => {
-                // Filtra tabelas e linhas se houver busca ou filtro de atributo ativo
+                // 1. Verifica filtro de Categoria selecionada no topo
+                if (activeCategoryFilter !== "ALL") {
+                    const normCat = normalizeCategoryString(cat.name);
+                    const normFilter = normalizeCategoryString(activeCategoryFilter);
+                    // Aceita correspondência direta ou singular/plural (ex: MULTIFOCAL / MULTIFOCAIS)
+                    const singularFilter = normFilter.replace(/AIS$/, "AL");
+                    if (!normCat.includes(normFilter) && !normCat.includes(singularFilter)) {
+                        return;
+                    }
+                }
+
+                // 2. Filtra tabelas e linhas se houver busca ou filtros de atributos ativos (lógica abrangente "OU")
                 const filteredTables = cat.tables.map(tb => {
                     const matchingRows = tb.rows.filter(row => {
                         const matchesSearch = !activeSearchTerm || 
@@ -685,18 +779,26 @@
                             tb.brandName.toLowerCase().includes(activeSearchTerm) ||
                             row.price.toLowerCase().includes(activeSearchTerm);
                         
-                        const matchesAttr = !activeAttributeFilter || 
-                            (row.attributes && row.attributes.includes(activeAttributeFilter));
+                        // Lógica abrangente (OU): se houver atributos selecionados, a lente precisa ter PELO MENOS UM deles
+                        const matchesAttr = activeAttributeFilters.length === 0 || 
+                            activeAttributeFilters.some(attrKey => {
+                                if (attrKey === 'destaque') {
+                                    return isRowFeatured(row);
+                                }
+                                return Array.isArray(row.attributes) && row.attributes.includes(attrKey);
+                            });
 
                         return matchesSearch && matchesAttr;
                     });
                     return { ...tb, rows: isEdit ? tb.rows : matchingRows };
                 }).filter(tb => isEdit || tb.rows.length > 0);
 
-                // Se estamos apenas no modo visualizar e a categoria não tem resultados para o filtro, oculta
-                if (!isEdit && filteredTables.length === 0 && (activeSearchTerm || activeAttributeFilter)) {
+                // Se estamos no modo visualizar e a categoria não tem resultados para o filtro, oculta
+                if (!isEdit && filteredTables.length === 0 && (activeSearchTerm || activeAttributeFilters.length > 0)) {
                     return;
                 }
+
+                visibleCategoriesCount++;
 
                 const sectionEl = document.createElement("section");
                 sectionEl.className = `category-section mb-12 ${cat.pageBreakBefore ? 'page-break-marker' : ''}`;
@@ -716,7 +818,7 @@
                     <div class="no-print flex items-center justify-center gap-2 mb-2">
                         <button onclick="moveCategory('${cat.id}', -1)" ${catIndex === 0 ? 'disabled class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded"' : 'class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium"'} title="Mover categoria para cima">↑ Subir</button>
                         <button onclick="moveCategory('${cat.id}', 1)" ${catIndex === window.catalogData.categories.length - 1 ? 'disabled class="opacity-30 cursor-not-allowed px-2 py-1 text-xs bg-gray-100 rounded"' : 'class="px-2.5 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 font-medium"'} title="Mover categoria para baixo">↓ Descer</button>
-                        <button onclick="toggleCategoryPageBreak('${cat.id}')" class="px-2.5 py-1 text-xs ${cat.pageBreakBefore ? 'bg-teal-100 text-teal-800' : 'bg-gray-100 text-gray-600'} hover:bg-gray-200 rounded-lg font-medium" title="Iniciar esta categoria em uma nova folha A4">
+                        <button onclick="toggleCategoryPageBreak('${cat.id}')" class="px-2.5 py-1 text-xs ${cat.pageBreakBefore ? 'bg-[#eef8fa] text-[#358a96]' : 'bg-gray-100 text-gray-600'} hover:bg-gray-200 rounded-lg font-medium" title="Iniciar esta categoria em uma nova folha A4">
                             📄 ${cat.pageBreakBefore ? 'Quebra de Página Ativa' : 'Inserir Quebra de Página Acima'}
                         </button>
                         <button onclick="confirmRemoveCategory('${cat.id}')" class="px-2.5 py-1 text-xs bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-medium" title="Excluir esta categoria inteira">
@@ -731,7 +833,7 @@
                 // Botão para adicionar nova Tabela de Marca dentro desta categoria
                 const addBrandTableBtnHTML = isEdit ? `
                     <div class="no-print text-center mt-4 mb-8">
-                        <button onclick="addNewBrandTable('${cat.id}')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-teal-500/60 hover:border-teal-600 bg-teal-50/40 hover:bg-teal-50 text-teal-800 text-xs font-bold uppercase tracking-wider transition">
+                        <button onclick="addNewBrandTable('${cat.id}')" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-[#43aab8]/60 hover:border-[#43aab8] bg-[#eef8fa]/50 hover:bg-[#eef8fa] text-[#27666f] text-xs font-bold uppercase tracking-wider transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                             <span>+ Nova Tabela de Marca em ${cat.name}</span>
                         </button>
@@ -752,21 +854,61 @@
 
                 container.appendChild(sectionEl);
             });
-        }
+
+            // Caso nenhum resultado seja encontrado para os filtros atuais
+            if (visibleCategoriesCount === 0) {
+                container.innerHTML = `
+                    <div class="no-print text-center py-12 px-4 rounded-2xl border border-dashed border-gray-200 bg-gray-50/50 my-6">
+                        <p class="text-sm font-semibold text-gray-600">Nenhuma lente encontrada com os filtros selecionados.</p>
+                        <button onclick="clearFilters()" class="mt-3 px-4 py-2 rounded-full text-xs font-bold bg-[#43aab8] text-white hover:bg-[#358a96] transition">
+                            Limpar Todos os Filtros
+                        </button>
+                    </div>
+                `;
+            }
+        };
 
         function renderBrandTableHTML(catId, table, tbIndex, totalTables, isEdit) {
-            const headerColor = table.headerColor || "#489ca8";
+            // Adequa automaticamente a cor antiga (#489ca8) para o azul exato da Óticas Duo (#43aab8)
+            const rawColor = table.headerColor || "#43aab8";
+            const headerColor = rawColor.toLowerCase() === "#489ca8" ? "#43aab8" : rawColor;
 
             const rowsHTML = table.rows.map((row, rowIndex) => {
-                // Renderiza os ícones dos atributos selecionados na linha
-                const attrsIconsHTML = (row.attributes || []).map(attrKey => {
-                    const cfg = ATTRIBUTES_CONFIG[attrKey];
-                    return cfg ? `<span title="${cfg.label}" class="inline-flex items-center">${cfg.svg}</span>` : '';
-                }).join("");
+                const featured = isRowFeatured(row);
+
+                // Renderiza os ícones dos atributos técnicos na coluna ATRIBUTOS (exceto a estrela, que fica ao lado do nome)
+                const attrsIconsHTML = (row.attributes || [])
+                    .filter(attrKey => attrKey !== 'destaque')
+                    .map(attrKey => {
+                        const cfg = ATTRIBUTES_CONFIG[attrKey];
+                        return cfg ? `<span title="${cfg.label}" class="inline-flex items-center">${cfg.svg}</span>` : '';
+                    }).join("");
+
+                // Estrela de destaque ao lado do nome da lente
+                let starBadgeHTML = "";
+                if (isEdit) {
+                    starBadgeHTML = `
+                        <button type="button"
+                                onclick="toggleRowStar('${catId}', '${table.id}', '${row.id}')"
+                                class="no-print shrink-0 p-1 -ml-1 rounded-full hover:bg-amber-50 transition"
+                                title="${featured ? 'Remover destaque de Mais Vendida' : 'Marcar lente como Mais Vendida (Destaque)'}">
+                            ${featured 
+                                ? ATTRIBUTES_CONFIG.destaque.svg 
+                                : `<svg width="19" height="19" viewBox="0 0 24 24" class="text-gray-300 hover:text-amber-400 transition"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`
+                            }
+                        </button>
+                    `;
+                } else if (featured) {
+                    starBadgeHTML = `
+                        <span class="shrink-0 inline-flex items-center" title="Lente Mais Vendida / Destaque">
+                            ${ATTRIBUTES_CONFIG.destaque.svg}
+                        </span>
+                    `;
+                }
 
                 const editAttrButtonHTML = isEdit ? `
                     <button onclick="openAttributePopover(event, '${catId}', '${table.id}', '${row.id}')" 
-                            class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-teal-100 text-gray-600 hover:text-teal-800 inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition"
+                            class="no-print ml-1.5 w-6 h-6 rounded-full bg-gray-100 hover:bg-[#eef8fa] text-gray-600 hover:text-[#358a96] inline-flex items-center justify-center text-xs font-bold border border-gray-300 transition"
                             title="Adicionar ou remover atributos desta lente">
                         +
                     </button>
@@ -792,10 +934,13 @@
 
                 return `
                     <tr class="lens-row">
-                        <!-- Coluna NOME -->
+                        <!-- Coluna NOME + ESTRELA DE DESTAQUE -->
                         <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
-                            <span contenteditable="${isEdit ? 'true' : 'false'}"
-                                  onblur="updateCellValue('${catId}', '${table.id}', '${row.id}', 'name', this.innerText)">${row.name}</span>
+                            <div class="flex items-center gap-2">
+                                ${starBadgeHTML}
+                                <span contenteditable="${isEdit ? 'true' : 'false'}"
+                                      onblur="updateCellValue('${catId}', '${table.id}', '${row.id}', 'name', this.innerText)">${row.name}</span>
+                            </div>
                         </td>
 
                         <!-- Coluna ATRIBUTOS -->
@@ -830,7 +975,7 @@
                 `;
             }).join("");
 
-            // Controles do cabeçalho da tabela no modo Editor (cor do cabeçalho, ordem, excluir tabela)
+            // Controles do cabeçalho da tabela no modo Editor
             const tableHeaderControlsHTML = isEdit ? `
                 <div class="no-print absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5 bg-black/20 backdrop-blur-xs px-2.5 py-1 rounded-full">
                     <label class="cursor-pointer flex items-center gap-1 text-[11px] font-medium text-white/90 hover:text-white" title="Mudar cor do cabeçalho desta marca">
@@ -847,7 +992,7 @@
             // Rodapé da tabela para adicionar linha no Modo Editor
             const tableFooterAddRowHTML = isEdit ? `
                 <div class="no-print bg-gray-50/80 border-t border-gray-200 px-6 py-2.5 flex items-center justify-between">
-                    <button onclick="addNewLensRow('${catId}', '${table.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:text-teal-900 py-1 px-3 rounded-lg hover:bg-teal-50 transition">
+                    <button onclick="addNewLensRow('${catId}', '${table.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#358a96] hover:text-[#27666f] py-1 px-3 rounded-lg hover:bg-[#eef8fa] transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                         <span>Adicionar Lente (Nova Linha)</span>
                     </button>
@@ -1014,6 +1159,26 @@
             }
         }
 
+        // Alternar rapidamente a Estrela de Destaque (Mais Vendida) ao lado do nome da lente
+        function toggleRowStar(catId, tableId, rowId) {
+            if (currentMode !== "edit") return;
+            const row = findRow(catId, tableId, rowId);
+            if (!row) return;
+
+            if (!Array.isArray(row.attributes)) row.attributes = [];
+            const idx = row.attributes.indexOf('destaque');
+            if (idx >= 0) {
+                row.attributes.splice(idx, 1);
+                row.featured = false;
+            } else {
+                row.attributes.push('destaque');
+                row.featured = true;
+            }
+
+            saveCatalogToStorage();
+            window.renderCatalog();
+        }
+
         // Popover de Atributos
         function openAttributePopover(event, catId, tableId, rowId) {
             event.stopPropagation();
@@ -1024,31 +1189,13 @@
             if (!row) return;
 
             const popover = document.getElementById("attributePopover");
-            const list = document.getElementById("popoverOptionsList");
-
-            list.innerHTML = Object.values(ATTRIBUTES_CONFIG).map(attr => {
-                const isSelected = (row.attributes || []).includes(attr.id);
-                return `
-                    <button type="button" 
-                            onclick="toggleRowAttribute('${attr.id}')"
-                            class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition ${isSelected ? 'bg-teal-50 text-teal-900 border border-teal-300' : 'hover:bg-gray-50 text-gray-700 border border-transparent'}">
-                        <span class="flex items-center gap-2.5">
-                            ${attr.svg}
-                            <span>${attr.label}</span>
-                        </span>
-                        <span class="w-4 h-4 rounded flex items-center justify-center ${isSelected ? 'bg-teal-600 text-white' : 'border border-gray-300'}">
-                            ${isSelected ? '✓' : ''}
-                        </span>
-                    </button>
-                `;
-            }).join("");
+            renderPopoverOptions(row);
 
             popover.classList.remove("hidden");
 
-            // Posicionamento inteligente próximo ao clique
             const rect = event.currentTarget.getBoundingClientRect();
             const popoverWidth = 288;
-            const popoverHeight = 340;
+            const popoverHeight = 380;
 
             let left = rect.left + (rect.width / 2) - (popoverWidth / 2);
             let top = rect.bottom + 8;
@@ -1065,6 +1212,31 @@
             popover.style.top = `${top}px`;
         }
 
+        function renderPopoverOptions(row) {
+            const list = document.getElementById("popoverOptionsList");
+            if (!list) return;
+
+            list.innerHTML = Object.values(ATTRIBUTES_CONFIG).map(attr => {
+                const isSelected = attr.id === 'destaque'
+                    ? isRowFeatured(row)
+                    : (row.attributes || []).includes(attr.id);
+
+                return `
+                    <button type="button" 
+                            onclick="toggleRowAttribute('${attr.id}')"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition ${isSelected ? 'bg-[#eef8fa] text-[#1e5259] border border-[#43aab8]/60' : 'hover:bg-gray-50 text-gray-700 border border-transparent'}">
+                        <span class="flex items-center gap-2.5">
+                            ${attr.svg}
+                            <span>${attr.label}</span>
+                        </span>
+                        <span class="w-4 h-4 rounded flex items-center justify-center ${isSelected ? 'bg-[#43aab8] text-white' : 'border border-gray-300'}">
+                            ${isSelected ? '✓' : ''}
+                        </span>
+                    </button>
+                `;
+            }).join("");
+        }
+
         function toggleRowAttribute(attrId) {
             if (!activePopoverTarget) return;
             const { catId, tableId, rowId } = activePopoverTarget;
@@ -1075,33 +1247,15 @@
             const idx = row.attributes.indexOf(attrId);
             if (idx >= 0) {
                 row.attributes.splice(idx, 1);
+                if (attrId === 'destaque') row.featured = false;
             } else {
                 row.attributes.push(attrId);
+                if (attrId === 'destaque') row.featured = true;
             }
 
             saveCatalogToStorage(true);
             window.renderCatalog();
-
-            // Atualiza estado visual do popover aberto
-            const list = document.getElementById("popoverOptionsList");
-            if (list) {
-                list.innerHTML = Object.values(ATTRIBUTES_CONFIG).map(attr => {
-                    const isSelected = row.attributes.includes(attr.id);
-                    return `
-                        <button type="button" 
-                                onclick="toggleRowAttribute('${attr.id}')"
-                                class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition ${isSelected ? 'bg-teal-50 text-teal-900 border border-teal-300' : 'hover:bg-gray-50 text-gray-700 border border-transparent'}">
-                            <span class="flex items-center gap-2.5">
-                                ${attr.svg}
-                                <span>${attr.label}</span>
-                            </span>
-                            <span class="w-4 h-4 rounded flex items-center justify-center ${isSelected ? 'bg-teal-600 text-white' : 'border border-gray-300'}">
-                                ${isSelected ? '✓' : ''}
-                            </span>
-                        </button>
-                    `;
-                }).join("");
-            }
+            renderPopoverOptions(row);
         }
 
         function closeAttributePopover() {
@@ -1158,7 +1312,7 @@
             cat.tables.push({
                 id: "tb_" + Date.now(),
                 brandName: "NOVA MARCA",
-                headerColor: "#489ca8",
+                headerColor: "#43aab8",
                 rows: [
                     {
                         id: "row_" + Date.now() + "_1",
@@ -1217,7 +1371,7 @@
                     {
                         id: "tb_" + Date.now(),
                         brandName: "OPTVIEW",
-                        headerColor: "#489ca8",
+                        headerColor: "#43aab8",
                         rows: [
                             {
                                 id: "row_" + Date.now(),
@@ -1272,54 +1426,91 @@
         }
 
         /********************************************************************
-         * 7. FILTROS, BUSCA, LAYOUT DE FOLHAS E BACKUP JSON
+         * 7. FILTROS (MÚLTIPLOS ATRIBUTOS "OU" + CATEGORIAS), BUSCA E BACKUP
          ********************************************************************/
         function handleSearch(value) {
             activeSearchTerm = value.trim().toLowerCase();
-            const clearBtn = document.getElementById("clearSearchBtn");
-            if (activeSearchTerm || activeAttributeFilter) {
-                clearBtn.classList.remove("hidden");
-            } else {
-                clearBtn.classList.add("hidden");
-            }
+            updateFilterStatusUI();
             window.renderCatalog();
         }
 
         function toggleAttributeFilter(attrKey) {
-            if (activeAttributeFilter === attrKey) {
-                activeAttributeFilter = null;
+            const idx = activeAttributeFilters.indexOf(attrKey);
+            if (idx >= 0) {
+                activeAttributeFilters.splice(idx, 1);
             } else {
-                activeAttributeFilter = attrKey;
+                activeAttributeFilters.push(attrKey);
             }
 
-            // Atualiza destaque visual na legenda
+            // Atualiza destaque visual nos itens selecionados da legenda
             document.querySelectorAll(".legend-item").forEach(el => {
-                if (el.getAttribute("data-attr") === activeAttributeFilter) {
+                const key = el.getAttribute("data-attr");
+                if (activeAttributeFilters.includes(key)) {
                     el.classList.add("active-filter");
                 } else {
                     el.classList.remove("active-filter");
                 }
             });
 
+            updateFilterStatusUI();
+            window.renderCatalog();
+        }
+
+        function setCategoryFilter(categoryKey) {
+            activeCategoryFilter = categoryKey;
+
+            document.querySelectorAll("[data-cat-filter]").forEach(btn => {
+                if (btn.getAttribute("data-cat-filter") === categoryKey) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+
+            updateFilterStatusUI();
+            window.renderCatalog();
+        }
+
+        function updateFilterStatusUI() {
+            const clearBtn = document.getElementById("clearSearchBtn");
+            const hasAnyFilter = Boolean(activeSearchTerm || activeAttributeFilters.length > 0 || activeCategoryFilter !== "ALL");
+            if (hasAnyFilter) {
+                clearBtn.classList.remove("hidden");
+            } else {
+                clearBtn.classList.add("hidden");
+            }
+
             const notice = document.getElementById("activeFilterNotice");
             const noticeText = document.getElementById("activeFilterText");
-            if (activeAttributeFilter && ATTRIBUTES_CONFIG[activeAttributeFilter]) {
+            if (activeAttributeFilters.length > 0) {
+                const labels = activeAttributeFilters
+                    .map(k => ATTRIBUTES_CONFIG[k] ? ATTRIBUTES_CONFIG[k].label : k)
+                    .join(" ou ");
                 notice.classList.remove("hidden");
-                noticeText.innerText = `Exibindo apenas lentes com o atributo: ${ATTRIBUTES_CONFIG[activeAttributeFilter].label}`;
+                noticeText.innerText = `Exibindo lentes com: ${labels}`;
             } else {
                 notice.classList.add("hidden");
             }
-
-            window.renderCatalog();
         }
 
         function clearFilters() {
             activeSearchTerm = "";
-            activeAttributeFilter = null;
+            activeAttributeFilters = [];
+            activeCategoryFilter = "ALL";
+
             document.getElementById("searchInput").value = "";
             document.getElementById("clearSearchBtn").classList.add("hidden");
             document.getElementById("activeFilterNotice").classList.add("hidden");
+
             document.querySelectorAll(".legend-item").forEach(el => el.classList.remove("active-filter"));
+            document.querySelectorAll("[data-cat-filter]").forEach(btn => {
+                if (btn.getAttribute("data-cat-filter") === "ALL") {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+
             window.renderCatalog();
         }
 
@@ -1334,7 +1525,7 @@
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(window.catalogData, null, 2));
             const dlAnchor = document.createElement("a");
             dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", "catalogo-lentes-otica.json");
+            dlAnchor.setAttribute("download", "catalogo-lentes-oticas-duo.json");
             document.body.appendChild(dlAnchor);
             dlAnchor.click();
             dlAnchor.remove();
@@ -1439,10 +1630,8 @@
             }, 2600);
         }
 
-        // Tornando o showToast global para o script tipo module poder acessar
         window.showToast = showToast;
 
-        // Fecha o popover de atributos ao clicar fora dele
         document.addEventListener("click", (e) => {
             const popover = document.getElementById("attributePopover");
             if (!popover.classList.contains("hidden") && !popover.contains(e.target)) {
@@ -1450,7 +1639,6 @@
             }
         });
 
-        // Inicialização ao carregar a página
         window.onload = function() {
             renderLegendIcons();
             window.renderCatalog();
@@ -1462,7 +1650,6 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-      // Credenciais do seu banco de dados
       const firebaseConfig = {
         apiKey: "AIzaSyC7UI7RcpNbgJq-9fievyWBb1_Fizzk2g8",
         authDomain: "catalogo-lentes-5d29f.firebaseapp.com",
@@ -1475,19 +1662,13 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
-      // Usando o documento "principal" dentro da coleção "catalogo"
       const catalogoDocRef = doc(db, "catalogo", "principal");
 
-      // onSnapshot escuta as mudanças em tempo real e atualiza a tela
       onSnapshot(catalogoDocRef, (snapshot) => {
         if (snapshot.exists()) {
           const dadosNuvem = snapshot.data();
           if (dadosNuvem && dadosNuvem.catalogoCompleto) {
-            
-            // 1. Atualiza a variável que controla o catálogo
             window.catalogData = dadosNuvem.catalogoCompleto;
-            
-            // 2. Se a função de renderizar existir, desenha tudo na tela
             if (typeof window.renderCatalog === "function") {
               window.renderCatalog();
             }
@@ -1500,7 +1681,6 @@
         }
       });
 
-      // Função acionada toda vez que você altera, cria ou exclui algo no layout
       window.salvarNaNuvem = async function(novosDados) {
         try {
           await setDoc(catalogoDocRef, {
