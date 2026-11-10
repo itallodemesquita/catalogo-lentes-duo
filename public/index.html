@@ -181,7 +181,7 @@
             background-color: #fafbfc;
         }
 
-        /* Divisória vertical sutil entre Esférico, Cilíndrico e Valor */
+        /* Divisória vertical sutil entre Esférico, Cilíndrico, Adição e Valor */
         .cell-divider-left {
             position: relative;
         }
@@ -280,6 +280,115 @@
 </head>
 <body class="min-h-screen pb-16">
 
+    <!-- TELA DE LOGIN RESTRITA (GATEKEEPER ANTES DE ACESSAR O CATÁLOGO) -->
+    <div id="loginGateScreen" class="no-print fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#eef8fa] via-[#f2f4f7] to-[#e2f1f4] overflow-y-auto">
+        <div class="bg-white rounded-[32px] max-w-md w-full p-7 sm:p-10 shadow-2xl border border-white/80 relative my-auto">
+            <!-- Detalhe superior decorativo da marca -->
+            <div class="w-20 h-1.5 bg-[#43aab8] rounded-full mx-auto mb-6"></div>
+
+            <!-- Logo Oficial Óticas Duo Centralizada -->
+            <div class="flex justify-center mb-5 select-none">
+                <svg class="h-16 sm:h-20 w-auto" viewBox="0 0 270 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="12" y="54" fill="#43aab8" font-family="'Nunito', sans-serif" font-weight="800" font-size="52" letter-spacing="-0.5">Óticas</text>
+                    <path d="M16 68H56C83 68 101 85 101 109.5C101 134 83 151 56 151H16C11.5 151 9 148.5 9 144V75C9 70.5 11.5 68 16 68ZM28 84V135H55C71.5 135 82 124.5 82 109.5C82 94.5 71.5 84 55 84H28Z" fill="#43aab8"/>
+                    <path d="M116 93C116 88 120 84 125 84C130 84 134 88 134 93V123C134 132 139.5 137.5 148 137.5C156.5 137.5 162 132 162 123V93C162 88 166 84 171 84C176 84 180 88 180 93V142C180 147 176 151 171 151C166.5 151 163 148 162.5 143.5C157.5 149 150.5 152 142 152C126.5 152 116 141.5 116 125V93Z" fill="#43aab8"/>
+                    <circle cx="226" cy="117.5" r="34.5" fill="#43aab8"/>
+                    <circle cx="226" cy="117.5" r="19.5" fill="#ffffff"/>
+                    <path d="M205 114.5H247" stroke="#43aab8" stroke-width="3.2" stroke-linecap="round"/>
+                    <circle cx="218" cy="115.5" r="5.3" fill="#43aab8"/>
+                    <circle cx="234" cy="115.5" r="5.3" fill="#43aab8"/>
+                </svg>
+            </div>
+
+            <div class="text-center mb-7">
+                <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">Catálogo Digital de Lentes</h2>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1">Entre com suas credenciais corporativas para acessar o catálogo</p>
+            </div>
+
+            <form id="gateLoginForm" onsubmit="handleGateLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Usuário</label>
+                    <div class="relative">
+                        <input type="text" id="gateUsernameInput" placeholder="Insira seu nome de usuário..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:border-[#43aab8] focus:ring-2 focus:ring-[#43aab8]/20 outline-none text-sm font-medium transition" required="">
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Senha</label>
+                    <div class="relative">
+                        <input type="password" id="gatePasswordInput" placeholder="Digite sua senha..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-300 focus:border-[#43aab8] focus:ring-2 focus:ring-[#43aab8]/20 outline-none text-sm font-medium transition" required="">
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Opções: Lembrar-me e Esqueceu a senha? -->
+                <div class="flex items-center justify-between pt-1">
+                    <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+                        <input type="checkbox" id="rememberMeCheckbox" checked class="w-4 h-4 rounded border-gray-300 text-[#43aab8] focus:ring-[#43aab8] accent-[#43aab8] cursor-pointer">
+                        <span class="text-xs font-semibold text-gray-600">Lembrar-me</span>
+                    </label>
+                    <button type="button" onclick="openForgotPasswordModal()" class="text-xs font-bold text-[#358a96] hover:text-[#27666f] hover:underline transition">
+                        Esqueceu a senha?
+                    </button>
+                </div>
+
+                <p id="gateLoginErrorMsg" class="hidden text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-xl p-3"></p>
+
+                <button type="submit" id="gateLoginSubmitBtn" class="w-full py-3.5 px-5 rounded-xl text-sm font-bold bg-[#43aab8] hover:bg-[#358a96] text-white shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2">
+                    <span>Entrar no Catálogo</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </form>
+
+            <div class="mt-7 pt-5 border-t border-gray-100 text-center">
+                <p class="text-[11px] text-gray-400 font-medium">Acesso exclusivo para colaboradores e gestores da <strong class="text-gray-600">Óticas Duo</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Informativo: Esqueceu a Senha -->
+    <div id="forgotPasswordModal" class="hidden no-print fixed inset-0 z-[60] bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-100">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-11 h-11 rounded-2xl bg-[#eef8fa] text-[#43aab8] flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <button type="button" onclick="closeForgotPasswordModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-xl hover:bg-gray-100">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <h3 class="text-lg font-extrabold text-gray-900">Redefinição de Senha</h3>
+            <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                Para solicitar a redefinição de sua senha de acesso, envie um e-mail para o setor responsável informando seu <strong>nome de usuário</strong> e a <strong>solicitação de redefinição</strong>:
+            </p>
+
+            <div class="mt-4 p-3.5 rounded-2xl bg-[#eef8fa] border border-[#43aab8]/30 flex items-center justify-between gap-2">
+                <span class="text-xs sm:text-sm font-bold text-[#1e5259] select-all">financeiro.oticasduo@gmail.com</span>
+                <a href="mailto:financeiro.oticasduo@gmail.com?subject=Solicita%C3%A7%C3%A3o%20de%20Redefini%C3%A7%C3%A3o%20de%20Senha%20-%20Cat%C3%A1logo%20de%20Lentes&body=Ol%C3%A1%2C%0A%0ASolicito%20a%20redefini%C3%A7%C3%A3o%20de%20minha%20senha%20de%20acesso%20ao%20Cat%C3%A1logo%20de%20Lentes%20da%20%C3%93ticas%20Duo.%0A%0AMeu%20usu%C3%A1rio%2Fe-mail%3A%20" 
+                   class="px-3 py-1.5 rounded-xl bg-[#43aab8] hover:bg-[#358a96] text-white text-xs font-bold transition shrink-0">
+                    Enviar E-mail
+                </a>
+            </div>
+
+            <div class="flex justify-end mt-6">
+                <button type="button" onclick="closeForgotPasswordModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-gray-100 hover:bg-gray-200 text-gray-700 transition">
+                    Entendi, fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO DO SISTEMA (OCULTO ATÉ AUTENTICAÇÃO NA TELA DE LOGIN) -->
+    <div id="appProtectedContent" class="hidden">
+
     <!-- Barra Superior de Ferramentas (Apenas Sistema / Oculta na Impressão) -->
     <header class="no-print sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 px-4 py-2.5 shadow-sm">
         <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
@@ -310,11 +419,17 @@
                     <span id="layoutToggleText">Modo Folha Contínua</span>
                 </button>
 
-                <!-- Botões Exclusivos do Editor (Senha, Backup, Restaurar) -->
+                <!-- Botão de Cadastrar Novo Usuário (Visível para Gestores Autorizados) -->
+                <button id="managerAddUserBtn" onclick="openNewUserModal()" class="hidden px-2.5 py-1.5 text-xs font-semibold text-[#27666f] bg-[#eef8fa] hover:bg-[#d8f0f4] border border-[#43aab8]/30 rounded-full transition items-center gap-1" title="Cadastrar novo usuário (Gestor ou Funcionário)">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                    <span>+ Usuário</span>
+                </button>
+
+                <!-- Botões Exclusivos do Modo de Edição Ativo (Código Mestre, Backup, Restaurar) -->
                 <div id="editorToolbarBtns" class="items-center gap-1.5 hidden">
-                    <button onclick="openPinSettingsModal()" class="px-2.5 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full transition flex items-center gap-1" title="Alterar PIN de autorização">
+                    <button onclick="openMasterCodeSettingsModal()" class="px-2.5 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full transition flex items-center gap-1" title="Configurar código de restrição para criação de novos usuários">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                        <span>PIN</span>
+                        <span>Chave</span>
                     </button>
                     <button onclick="exportCatalogJSON()" class="px-2.5 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full transition" title="Baixar arquivo de backup (.json)">
                         Exportar Backup
@@ -332,6 +447,12 @@
                 <button onclick="window.print()" class="px-3.5 py-1.5 text-xs font-semibold text-white bg-[#43aab8] hover:bg-[#358a96] rounded-full transition flex items-center gap-1.5 shadow-sm">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
                     Imprimir / PDF
+                </button>
+
+                <!-- Botão Sair (Logout) -->
+                <button onclick="handleSystemLogout()" class="px-3 py-1.5 text-xs font-semibold text-gray-600 hover:text-red-600 bg-gray-100 hover:bg-red-50 rounded-full transition flex items-center gap-1" title="Encerrar sessão e voltar para a tela de login">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    <span>Sair</span>
                 </button>
             </div>
         </div>
@@ -372,8 +493,8 @@
                 </div>
             </div>
 
-            <!-- Pílula Seletora: Visualizar / Editar -->
-            <div class="no-print inline-flex items-center bg-[#f0f2f5] p-1.5 rounded-full border border-gray-200/80 self-start sm:self-auto">
+            <!-- Pílula Seletora: Visualizar / Editar (Botão Editar exclusivo para Gestor/Editor) -->
+            <div id="modeSelectorPill" class="no-print inline-flex items-center bg-[#f0f2f5] p-1.5 rounded-full border border-gray-200/80 self-start sm:self-auto">
                 <button id="btnModeView" onclick="switchMode('view')" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all bg-white text-gray-900 shadow-sm">
                     <!-- Ícone Olho -->
                     <svg class="w-4 h-4 text-gray-800" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
@@ -382,7 +503,7 @@
                     </svg>
                     <span>Visualizar</span>
                 </button>
-                <button id="btnModeEdit" onclick="requestEditMode()" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800">
+                <button id="btnModeEdit" onclick="requestEditMode()" class="hidden items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800">
                     <!-- Ícone Lápis -->
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
@@ -392,7 +513,7 @@
             </div>
         </div>
 
-        <!-- Caixa de Legenda de Atributos (Seleção Múltipla com Lógica "OU" + Estrela de Destaque) -->
+        <!-- Caixa de Legenda de Atributos (Seleção Múltipla com Lógica Restritiva "E" + Estrela de Destaque) -->
         <section class="legend-box" aria-label="Legenda de Atributos das Lentes">
             <!-- Linha 1: 5 atributos -->
             <div class="flex flex-wrap items-center justify-between gap-y-3 gap-x-2 mb-3.5">
@@ -462,12 +583,17 @@
             <div class="flex items-center gap-2.5">
                 <span class="flex h-6 w-6 items-center justify-center rounded-full bg-amber-200 text-amber-900 font-bold">✎</span>
                 <div>
-                    <strong class="font-semibold">Modo de Edição Desbloqueado:</strong> Clique em qualquer texto para editar. Clique na <strong>estrela (★)</strong> ao lado do nome da lente para destacá-la como mais vendida, ou nos ícones de <strong>Atributos</strong> para alterar tratamentos.
+                    <strong class="font-semibold">Modo de Edição Desbloqueado (<span id="loggedEditorUserLabel">Editor</span>):</strong> Clique em qualquer texto para editar. Clique na <strong>estrela (★)</strong> ao lado do nome da lente para destacá-la, ou nos ícones de <strong>Atributos</strong> para alterar tratamentos.
                 </div>
             </div>
-            <button onclick="lockAndExitEditMode()" class="px-3 py-1.5 rounded-lg bg-amber-900 text-white font-semibold hover:bg-amber-950 transition shrink-0">
-                Concluir e Bloquear 🔒
-            </button>
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="openNewUserModal()" class="px-3 py-1.5 rounded-lg bg-amber-200/80 text-amber-950 font-semibold hover:bg-amber-300 transition">
+                    + Cadastrar Usuário
+                </button>
+                <button onclick="lockAndExitEditMode()" class="px-3 py-1.5 rounded-lg bg-amber-900 text-white font-semibold hover:bg-amber-950 transition">
+                    Sair e Bloquear 🔒
+                </button>
+            </div>
         </div>
 
         <!-- Container Dinâmico das Categorias e Tabelas de Marcas -->
@@ -482,6 +608,7 @@
         </div>
 
     </main>
+    </div> <!-- Fim de #appProtectedContent -->
 
     <!-- Popover Flutuante para Selecionar os Atributos de uma Lente -->
     <div id="attributePopover" class="no-print fixed z-50 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 w-72 hidden">
@@ -494,50 +621,101 @@
         <div id="popoverOptionsList" class="space-y-1.5"></div>
     </div>
 
-    <!-- Modal de Autorização (Senha / PIN de Editor) -->
+    <!-- Modal Administrativo de Cadastro de Novos Usuários (Exclusivo para Gestores) -->
     <div id="authModal" class="no-print fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-100 animate-fade-in">
-            <div class="w-12 h-12 rounded-2xl bg-[#eef8fa] text-[#43aab8] flex items-center justify-center mb-4">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-extrabold text-gray-900">Autorização de Editor</h3>
-            <p class="text-sm text-gray-500 mt-1">Insira o PIN da equipe de produto/gerência para habilitar a edição de preços, ranges e tabelas.</p>
             
-            <form onsubmit="handleAuthSubmit(event)" class="mt-5">
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">Senha / PIN de Acesso</label>
-                <input type="password" id="pinInput" placeholder="Digite o PIN..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-[#43aab8] focus:ring-2 focus:ring-[#43aab8]/20 outline-none text-base font-semibold tracking-widest" required="">
-                <p id="authErrorMsg" class="hidden text-xs font-semibold text-red-600 mt-2">PIN incorreto. Tente novamente.</p>
-                
-                <div class="mt-3 p-2.5 rounded-xl bg-gray-50 border border-gray-200/70 text-xs text-gray-500 flex items-center justify-between">
-                    <span>💡 PIN padrão para demonstração: <strong class="text-gray-800 font-mono">1234</strong></span>
-                    <button type="button" onclick="document.getElementById('pinInput').value='1234'" class="text-[#358a96] font-semibold hover:underline">Preencher</button>
+            <!-- Cabeçalho -->
+            <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-[#eef8fa] text-[#43aab8] flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-extrabold text-gray-900 leading-tight">Cadastrar Novo Usuário</h3>
+                        <p class="text-xs text-gray-500">Controle de Acesso e Permissões</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeAuthModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-xl hover:bg-gray-100">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- FORMULÁRIO DE CRIAÇÃO DE NOVO USUÁRIO E PERFIL (GESTOR vs FUNCIONÁRIO) -->
+            <form id="registerForm" onsubmit="handleRegisterSubmit(event)" class="space-y-3.5">
+                <div class="p-3 rounded-xl bg-[#eef8fa] border border-[#43aab8]/30 text-xs text-[#1e5259]">
+                    🔒 <strong>Painel de Gestor:</strong> Crie contas para novos colaboradores e defina se terão permissão de <strong>Gestor/Editor</strong> ou apenas <strong>Funcionário/Visualizador</strong>.
                 </div>
 
-                <div class="flex items-center justify-end gap-2.5 mt-6">
-                    <button type="button" onclick="closeAuthModal()" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-100 transition">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1">Novo Usuário ou E-mail</label>
+                    <input type="text" id="regUsernameInput" placeholder="Ex: maria ou maria@oticasduo.com.br" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#43aab8] focus:ring-2 focus:ring-[#43aab8]/20 outline-none text-sm font-medium" required="">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1.5">Papel / Nível de Permissão</label>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="regUserRole" value="visualizador" checked class="peer hidden">
+                            <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-[#43aab8] peer-checked:bg-[#eef8fa]/60 transition text-center">
+                                <div class="text-xs font-extrabold text-gray-900">Funcionário / Leitor</div>
+                                <div class="text-[10px] text-gray-500 mt-0.5">Apenas consulta</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="regUserRole" value="gestor" class="peer hidden">
+                            <div class="p-3 rounded-xl border-2 border-gray-200 peer-checked:border-[#43aab8] peer-checked:bg-[#eef8fa]/60 transition text-center">
+                                <div class="text-xs font-extrabold text-gray-900">Gestor / Editor</div>
+                                <div class="text-[10px] text-gray-500 mt-0.5">Edita tabelas e preços</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1">Nova Senha</label>
+                        <input type="password" id="regPasswordInput" placeholder="Mín. 6 caracteres" minlength="6" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#43aab8] outline-none text-sm font-medium" required="">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1">Confirmar Senha</label>
+                        <input type="password" id="regPasswordConfirmInput" placeholder="Repita a senha" minlength="6" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#43aab8] outline-none text-sm font-medium" required="">
+                    </div>
+                </div>
+
+                <div id="masterKeyFieldWrapper">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-600 mb-1">Chave de Autorização da Gerência (Opcional para Gestor logado)</label>
+                    <input type="password" id="regMasterKeyInput" placeholder="Digite a chave de autorização..." class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#43aab8] outline-none text-sm font-semibold tracking-wider">
+                </div>
+
+                <p id="regErrorMsg" class="hidden text-xs font-semibold text-red-600 bg-red-50 border border-red-200 rounded-xl p-2.5"></p>
+
+                <div class="flex items-center justify-end gap-2.5 pt-2">
+                    <button type="button" onclick="closeAuthModal()" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-gray-600 hover:bg-gray-100 transition">
                         Cancelar
                     </button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#43aab8] hover:bg-[#358a96] text-white shadow-sm transition">
-                        Desbloquear Edição
+                    <button type="submit" id="regSubmitBtn" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#43aab8] hover:bg-[#358a96] text-white shadow-sm transition">
+                        Salvar Novo Usuário
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 
-    <!-- Modal de Alterar PIN -->
+    <!-- Modal de Configurar Chave Mestre de Restrição -->
     <div id="pinSettingsModal" class="hidden no-print fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-gray-100">
-            <h3 class="text-lg font-extrabold text-gray-900">Configurar PIN de Editor</h3>
-            <p class="text-xs text-gray-500 mt-1">Defina a nova senha necessária para desbloquear o modo de edição neste navegador.</p>
-            <form onsubmit="saveNewPin(event)" class="mt-4">
-                <label class="block text-xs font-bold uppercase text-gray-600 mb-1.5">Novo PIN / Senha</label>
+            <h3 class="text-lg font-extrabold text-gray-900">Chave de Autorização</h3>
+            <p class="text-xs text-gray-500 mt-1">Defina a chave mestre exigida para autorizar a criação de novos usuários editores.</p>
+            <form onsubmit="saveNewMasterCode(event)" class="mt-4">
+                <label class="block text-xs font-bold uppercase text-gray-600 mb-1.5">Nova Chave de Autorização</label>
                 <input type="text" id="newPinInput" required="" minlength="3" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 focus:border-[#43aab8] outline-none text-sm font-semibold">
                 <div class="flex justify-end gap-2 mt-5">
                     <button type="button" onclick="closePinSettingsModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:bg-gray-100">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#43aab8] text-white hover:bg-[#358a96]">Salvar PIN</button>
+                    <button type="submit" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#43aab8] text-white hover:bg-[#358a96]">Salvar Chave</button>
                 </div>
             </form>
         </div>
@@ -626,6 +804,8 @@
         /********************************************************************
          * 2. DADOS INICIAIS PADRÃO
          ********************************************************************/
+        const DEFAULT_ADDITION_VALUE = "0,75 a 3,50";
+
         const DEFAULT_CATALOG_DATA = {
             title: "Catálogo de Lentes",
             subtitle: "Atualizado ao vivo",
@@ -675,14 +855,18 @@
          * 3. ESTADO DA APLICAÇÃO E ARMAZENAMENTO LOCAL
          ********************************************************************/
         const STORAGE_KEY = "otica_lens_catalog_v1";
-        const PIN_STORAGE_KEY = "otica_lens_editor_pin";
+        const MASTER_KEY_STORAGE = "otica_lens_editor_pin";
+        const AUTHORIZED_MAIN_MANAGERS = ["itallo@oticasduo.com.br"];
 
         window.catalogData = loadCatalogFromStorage();
         
         let currentMode = "view"; // 'view' | 'edit'
-        let isAuthorizedSession = false;
+        window.isAuthenticatedUser = false;
+        window.isAuthorizedSession = false; // true apenas quando o usuário logado possui papel 'gestor'
+        window.currentUserRole = "visualizador"; // 'gestor' | 'visualizador'
+        window.currentEditorEmail = null;
         let activeSearchTerm = "";
-        let activeAttributeFilters = []; // Permite múltiplos atributos (lógica abrangente OU)
+        let activeAttributeFilters = []; // Lógica restritiva (E): a lente deve conter TODOS os atributos selecionados
         let activeCategoryFilter = "ALL"; // 'ALL' | 'VISÃO SIMPLES' | 'MULTIFOCAIS' | 'BIFOCAIS'
         let isPagedLayout = false;
 
@@ -717,8 +901,8 @@
             }
         }
 
-        function getEditorPin() {
-            return localStorage.getItem(PIN_STORAGE_KEY) || "1234";
+        function getMasterKey() {
+            return localStorage.getItem(MASTER_KEY_STORAGE) || "1234";
         }
 
         // Helper para verificar se uma lente está marcada como destaque (Mais Vendida)
@@ -729,6 +913,30 @@
         // Helper para normalizar nomes de categorias (ignora acentos/maiúsculas na comparação)
         function normalizeCategoryString(str) {
             return (str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toUpperCase();
+        }
+
+        // Verifica se a categoria é Multifocal ou Bifocal para exibir a coluna ADIÇÃO
+        function categorySupportsAddition(categoryName) {
+            const norm = normalizeCategoryString(categoryName);
+            return norm.includes("MULTIFOCAL") || norm.includes("MULTIFOCAIS") || norm.includes("BIFOCAL") || norm.includes("BIFOCAIS");
+        }
+
+        // Garante que todas as linhas de categorias Multifocais e Bifocais tenham o valor padrão de adição ("0,75 a 3,50")
+        function ensureAdditionDefaults(catalog) {
+            if (!catalog || !Array.isArray(catalog.categories)) return;
+            catalog.categories.forEach(cat => {
+                if (categorySupportsAddition(cat.name) && Array.isArray(cat.tables)) {
+                    cat.tables.forEach(tb => {
+                        if (Array.isArray(tb.rows)) {
+                            tb.rows.forEach(row => {
+                                if (!row.addition || !String(row.addition).trim()) {
+                                    row.addition = DEFAULT_ADDITION_VALUE;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
 
         /********************************************************************
@@ -744,6 +952,7 @@
         }
 
         window.renderCatalog = function() {
+            ensureAdditionDefaults(window.catalogData);
             const isEdit = currentMode === "edit";
 
             // Atualiza título e subtítulo principais
@@ -764,24 +973,27 @@
                 if (activeCategoryFilter !== "ALL") {
                     const normCat = normalizeCategoryString(cat.name);
                     const normFilter = normalizeCategoryString(activeCategoryFilter);
-                    // Aceita correspondência direta ou singular/plural (ex: MULTIFOCAL / MULTIFOCAIS)
                     const singularFilter = normFilter.replace(/AIS$/, "AL");
                     if (!normCat.includes(normFilter) && !normCat.includes(singularFilter)) {
                         return;
                     }
                 }
 
-                // 2. Filtra tabelas e linhas se houver busca ou filtros de atributos ativos (lógica abrangente "OU")
+                const hasAdditionCol = categorySupportsAddition(cat.name);
+
+                // 2. Filtra tabelas e linhas se houver busca ou filtros de atributos ativos (Lógica Restritiva "E")
                 const filteredTables = cat.tables.map(tb => {
                     const matchingRows = tb.rows.filter(row => {
+                        const additionText = hasAdditionCol ? (row.addition || DEFAULT_ADDITION_VALUE).toLowerCase() : "";
                         const matchesSearch = !activeSearchTerm || 
                             row.name.toLowerCase().includes(activeSearchTerm) ||
                             tb.brandName.toLowerCase().includes(activeSearchTerm) ||
-                            row.price.toLowerCase().includes(activeSearchTerm);
+                            row.price.toLowerCase().includes(activeSearchTerm) ||
+                            additionText.includes(activeSearchTerm);
                         
-                        // Lógica abrangente (OU): se houver atributos selecionados, a lente precisa ter PELO MENOS UM deles
+                        // Lógica restritiva (E): se houver atributos selecionados, a lente precisa ter TODOS eles (.every)
                         const matchesAttr = activeAttributeFilters.length === 0 || 
-                            activeAttributeFilters.some(attrKey => {
+                            activeAttributeFilters.every(attrKey => {
                                 if (attrKey === 'destaque') {
                                     return isRowFeatured(row);
                                 }
@@ -828,7 +1040,7 @@
                 ` : "";
 
                 // Renderiza cada Tabela de Marca dentro da Categoria
-                const tablesHTML = filteredTables.map((tb, tbIndex) => renderBrandTableHTML(cat.id, tb, tbIndex, cat.tables.length, isEdit)).join("");
+                const tablesHTML = filteredTables.map((tb, tbIndex) => renderBrandTableHTML(cat.id, cat.name, tb, tbIndex, cat.tables.length, isEdit)).join("");
 
                 // Botão para adicionar nova Tabela de Marca dentro desta categoria
                 const addBrandTableBtnHTML = isEdit ? `
@@ -859,7 +1071,7 @@
             if (visibleCategoriesCount === 0) {
                 container.innerHTML = `
                     <div class="no-print text-center py-12 px-4 rounded-2xl border border-dashed border-gray-200 bg-gray-50/50 my-6">
-                        <p class="text-sm font-semibold text-gray-600">Nenhuma lente encontrada com os filtros selecionados.</p>
+                        <p class="text-sm font-semibold text-gray-600">Nenhuma lente encontrada com todos os filtros selecionados.</p>
                         <button onclick="clearFilters()" class="mt-3 px-4 py-2 rounded-full text-xs font-bold bg-[#43aab8] text-white hover:bg-[#358a96] transition">
                             Limpar Todos os Filtros
                         </button>
@@ -868,13 +1080,22 @@
             }
         };
 
-        function renderBrandTableHTML(catId, table, tbIndex, totalTables, isEdit) {
-            // Adequa automaticamente a cor antiga (#489ca8) para o azul exato da Óticas Duo (#43aab8)
+        function renderBrandTableHTML(catId, catName, table, tbIndex, totalTables, isEdit) {
             const rawColor = table.headerColor || "#43aab8";
             const headerColor = rawColor.toLowerCase() === "#489ca8" ? "#43aab8" : rawColor;
+            const showAdditionColumn = categorySupportsAddition(catName);
+
+            // Proporções de largura ajustadas caso tenha a coluna ADIÇÃO
+            const wName = showAdditionColumn ? "w-[28%]" : "w-[34%]";
+            const wAttr = showAdditionColumn ? "w-[16%]" : "w-[20%]";
+            const wSph  = showAdditionColumn ? "w-[13%]" : "w-[15%]";
+            const wCyl  = showAdditionColumn ? "w-[13%]" : "w-[15%]";
+            const wAdd  = "w-[14%]";
+            const wVal  = showAdditionColumn ? "w-[16%]" : "w-[16%]";
 
             const rowsHTML = table.rows.map((row, rowIndex) => {
                 const featured = isRowFeatured(row);
+                const additionValue = row.addition || DEFAULT_ADDITION_VALUE;
 
                 // Renderiza os ícones dos atributos técnicos na coluna ATRIBUTOS (exceto a estrela, que fica ao lado do nome)
                 const attrsIconsHTML = (row.attributes || [])
@@ -914,6 +1135,14 @@
                     </button>
                 ` : "";
 
+                const additionCellHTML = showAdditionColumn ? `
+                    <!-- Coluna ADIÇÃO (exclusiva para Multifocais e Bifocais, entre Cilíndrico e Valor) -->
+                    <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left ${wAdd}">
+                        <span contenteditable="${isEdit ? 'true' : 'false'}"
+                              onblur="updateCellValue('${catId}', '${table.id}', '${row.id}', 'addition', this.innerText)">${additionValue}</span>
+                    </td>
+                ` : "";
+
                 const rowActionButtonsHTML = isEdit ? `
                     <td class="no-print py-3 px-3 text-right whitespace-nowrap w-24 border-l border-gray-100">
                         <div class="inline-flex items-center gap-1">
@@ -935,7 +1164,7 @@
                 return `
                     <tr class="lens-row">
                         <!-- Coluna NOME + ESTRELA DE DESTAQUE -->
-                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 w-[34%]">
+                        <td class="py-4 pl-6 pr-3 text-left font-medium text-[15px] text-gray-800 ${wName}">
                             <div class="flex items-center gap-2">
                                 ${starBadgeHTML}
                                 <span contenteditable="${isEdit ? 'true' : 'false'}"
@@ -944,7 +1173,7 @@
                         </td>
 
                         <!-- Coluna ATRIBUTOS -->
-                        <td class="py-4 px-3 text-center w-[20%]">
+                        <td class="py-4 px-3 text-center ${wAttr}">
                             <div class="inline-flex items-center justify-center gap-1.5 flex-wrap min-h-[24px] ${isEdit ? 'cursor-pointer px-2 py-0.5 rounded-lg hover:bg-gray-50' : ''}"
                                  ${isEdit ? `onclick="openAttributePopover(event, '${catId}', '${table.id}', '${row.id}')"` : ''}>
                                 ${attrsIconsHTML || (isEdit ? '<span class="text-xs text-gray-400 italic">Selecionar...</span>' : '')}
@@ -953,19 +1182,21 @@
                         </td>
 
                         <!-- Coluna ESFÉRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
+                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left ${wSph}">
                             <span contenteditable="${isEdit ? 'true' : 'false'}"
                                   onblur="updateCellValue('${catId}', '${table.id}', '${row.id}', 'spherical', this.innerText)">${row.spherical}</span>
                         </td>
 
                         <!-- Coluna CILÍNDRICO -->
-                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left w-[15%]">
+                        <td class="py-4 px-3 text-center text-[13.5px] text-gray-600 cell-divider-left ${wCyl}">
                             <span contenteditable="${isEdit ? 'true' : 'false'}"
                                   onblur="updateCellValue('${catId}', '${table.id}', '${row.id}', 'cylindrical', this.innerText)">${row.cylindrical}</span>
                         </td>
 
+                        ${additionCellHTML}
+
                         <!-- Coluna VALOR -->
-                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left w-[16%]">
+                        <td class="py-4 pl-3 pr-6 text-center font-bold text-[15px] text-gray-900 cell-divider-left ${wVal}">
                             <span contenteditable="${isEdit ? 'true' : 'false'}"
                                   onblur="updateCellValue('${catId}', '${table.id}', '${row.id}', 'price', this.innerText)">${row.price}</span>
                         </td>
@@ -1018,6 +1249,7 @@
                                     <th class="py-2.5 px-3 text-center">ATRIBUTOS</th>
                                     <th class="py-2.5 px-3 text-center">ESFÉRICO</th>
                                     <th class="py-2.5 px-3 text-center">CILÍNDRICO</th>
+                                    ${showAdditionColumn ? '<th class="py-2.5 px-3 text-center">ADIÇÃO</th>' : ''}
                                     <th class="py-2.5 pl-3 pr-6 text-center">VALOR</th>
                                     ${isEdit ? '<th class="no-print py-2.5 px-3 text-right w-24">AÇÕES</th>' : ''}
                                 </tr>
@@ -1034,37 +1266,230 @@
         }
 
         /********************************************************************
-         * 5. ESQUEMA DE AUTORIZAÇÃO (VISUALIZAR vs. EDITAR COM PIN)
+         * 5. ESQUEMA DE AUTENTICAÇÃO E CONTROLE DE PAPÉIS (GESTOR vs VISUALIZADOR)
          ********************************************************************/
-        function requestEditMode() {
-            if (currentMode === "edit") return;
+        // Converte um nome de usuário simples em formato de e-mail válido para o Firebase Auth
+        function formatIdentifierToEmail(inputStr) {
+            const clean = (inputStr || "").trim().toLowerCase();
+            if (!clean) return "";
+            return clean.includes("@") ? clean : `${clean}@oticasduo.com.br`;
+        }
 
-            if (isAuthorizedSession) {
-                switchMode("edit");
+        function formatDisplayUser(emailOrUser) {
+            if (!emailOrUser) return "Usuário";
+            return emailOrUser
+                .replace("@oticasduo.com.br", "")
+                .replace("@oticasduo.catalogo", "");
+        }
+
+        function isDefaultManagerEmail(email) {
+            if (!email) return false;
+            return AUTHORIZED_MAIN_MANAGERS.includes(email.trim().toLowerCase());
+        }
+
+        // Atualiza a interface conforme a sessão autenticada e o papel do usuário ('gestor' ou 'visualizador')
+        window.applyAuthenticatedSessionUI = function(email, role) {
+            const normalizedEmail = (email || "").trim().toLowerCase();
+            const effectiveRole = isDefaultManagerEmail(normalizedEmail) ? "gestor" : (role || "visualizador");
+
+            window.isAuthenticatedUser = true;
+            window.currentEditorEmail = normalizedEmail;
+            window.currentUserRole = effectiveRole;
+            window.isAuthorizedSession = (effectiveRole === "gestor");
+
+            // Libera a visualização do catálogo e oculta a tela de login inicial
+            document.getElementById("loginGateScreen").classList.add("hidden");
+            document.getElementById("appProtectedContent").classList.remove("hidden");
+
+            const btnEdit = document.getElementById("btnModeEdit");
+            const managerAddUserBtn = document.getElementById("managerAddUserBtn");
+
+            if (effectiveRole === "gestor") {
+                btnEdit.classList.remove("hidden");
+                btnEdit.classList.add("flex");
+                managerAddUserBtn.classList.remove("hidden");
+                managerAddUserBtn.classList.add("flex");
             } else {
-                const modal = document.getElementById("authModal");
-                const pinInput = document.getElementById("pinInput");
-                document.getElementById("authErrorMsg").classList.add("hidden");
-                pinInput.value = "";
-                modal.classList.remove("hidden");
-                setTimeout(() => pinInput.focus(), 80);
+                btnEdit.classList.add("hidden");
+                btnEdit.classList.remove("flex");
+                managerAddUserBtn.classList.add("hidden");
+                managerAddUserBtn.classList.remove("flex");
+                if (currentMode === "edit") {
+                    currentMode = "view";
+                }
+            }
+
+            switchMode(currentMode);
+        };
+
+        window.showLoginGateUI = function() {
+            window.isAuthenticatedUser = false;
+            window.isAuthorizedSession = false;
+            window.currentUserRole = "visualizador";
+            window.currentEditorEmail = null;
+            currentMode = "view";
+
+            document.getElementById("appProtectedContent").classList.add("hidden");
+            document.getElementById("loginGateScreen").classList.remove("hidden");
+        };
+
+        // Login inicial na tela Gatekeeper
+        async function handleGateLoginSubmit(event) {
+            event.preventDefault();
+            const rawUser = document.getElementById("gateUsernameInput").value;
+            const password = document.getElementById("gatePasswordInput").value;
+            const rememberMe = document.getElementById("rememberMeCheckbox").checked;
+            const errEl = document.getElementById("gateLoginErrorMsg");
+            const submitBtn = document.getElementById("gateLoginSubmitBtn");
+
+            errEl.classList.add("hidden");
+            const email = formatIdentifierToEmail(rawUser);
+
+            if (!window.firebaseLoginUser) {
+                errEl.innerText = "Serviço de autenticação ainda está carregando. Tente novamente em instantes.";
+                errEl.classList.remove("hidden");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Autenticando...</span>`;
+
+            try {
+                const authResult = await window.firebaseLoginUser(email, password, rememberMe);
+                const loggedEmail = authResult.user.email;
+                const role = authResult.role || (isDefaultManagerEmail(loggedEmail) ? "gestor" : "visualizador");
+
+                document.getElementById("gatePasswordInput").value = "";
+                window.applyAuthenticatedSessionUI(loggedEmail, role);
+                showToast(`Bem-vindo(a), ${formatDisplayUser(loggedEmail)}!`);
+            } catch (error) {
+                errEl.innerText = translateFirebaseAuthError(error);
+                errEl.classList.remove("hidden");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>Entrar no Catálogo</span><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>`;
             }
         }
 
-        function handleAuthSubmit(event) {
-            event.preventDefault();
-            const enteredPin = document.getElementById("pinInput").value.trim();
-            const correctPin = getEditorPin();
+        function openForgotPasswordModal() {
+            document.getElementById("forgotPasswordModal").classList.remove("hidden");
+        }
 
-            if (enteredPin === correctPin) {
-                isAuthorizedSession = true;
-                closeAuthModal();
+        function closeForgotPasswordModal() {
+            document.getElementById("forgotPasswordModal").classList.add("hidden");
+        }
+
+        function requestEditMode() {
+            if (currentMode === "edit") return;
+
+            if (window.isAuthenticatedUser && window.currentUserRole === "gestor") {
                 switchMode("edit");
-                showToast("Modo Editor desbloqueado com sucesso!");
+                showToast("Modo de edição ativado.");
             } else {
-                const err = document.getElementById("authErrorMsg");
-                err.classList.remove("hidden");
+                showToast("Apenas usuários com perfil Gestor/Editor podem editar o catálogo.");
             }
+        }
+
+        function openNewUserModal() {
+            if (window.currentUserRole !== "gestor") {
+                showToast("Acesso restrito a gestores autorizados.");
+                return;
+            }
+            const modal = document.getElementById("authModal");
+            const masterKeyWrapper = document.getElementById("masterKeyFieldWrapper");
+            document.getElementById("regErrorMsg").classList.add("hidden");
+
+            if (window.currentUserRole === "gestor") {
+                masterKeyWrapper.classList.add("hidden");
+            } else {
+                masterKeyWrapper.classList.remove("hidden");
+            }
+
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("regUsernameInput").focus();
+            }, 80);
+        }
+
+        async function handleRegisterSubmit(event) {
+            event.preventDefault();
+            const rawUser = document.getElementById("regUsernameInput").value;
+            const password = document.getElementById("regPasswordInput").value;
+            const confirmPassword = document.getElementById("regPasswordConfirmInput").value;
+            const selectedRoleRadio = document.querySelector('input[name="regUserRole"]:checked');
+            const selectedRole = selectedRoleRadio ? selectedRoleRadio.value : "visualizador";
+            const enteredMasterKey = document.getElementById("regMasterKeyInput").value.trim();
+            const errEl = document.getElementById("regErrorMsg");
+            const submitBtn = document.getElementById("regSubmitBtn");
+
+            errEl.classList.add("hidden");
+
+            if (password !== confirmPassword) {
+                errEl.innerText = "As senhas informadas não coincidem.";
+                errEl.classList.remove("hidden");
+                return;
+            }
+
+            if (window.currentUserRole !== "gestor" && enteredMasterKey !== getMasterKey()) {
+                errEl.innerText = "Permissão negada. Apenas gestores autorizados podem criar novos usuários.";
+                errEl.classList.remove("hidden");
+                return;
+            }
+
+            if (!window.firebaseRegisterUser) {
+                errEl.innerText = "Serviço do Firebase Authentication indisponível no momento.";
+                errEl.classList.remove("hidden");
+                return;
+            }
+
+            const email = formatIdentifierToEmail(rawUser);
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Cadastrando usuário...";
+
+            try {
+                await window.firebaseRegisterUser(email, password, selectedRole);
+                
+                document.getElementById("regUsernameInput").value = "";
+                document.getElementById("regPasswordInput").value = "";
+                document.getElementById("regPasswordConfirmInput").value = "";
+                document.getElementById("regMasterKeyInput").value = "";
+
+                closeAuthModal();
+                const roleLabel = selectedRole === "gestor" ? "Gestor / Editor" : "Funcionário / Leitor";
+                showToast(`Usuário "${formatDisplayUser(email)}" (${roleLabel}) cadastrado com sucesso!`);
+            } catch (error) {
+                errEl.innerText = translateFirebaseAuthError(error);
+                errEl.classList.remove("hidden");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Salvar Novo Usuário";
+            }
+        }
+
+        function translateFirebaseAuthError(error) {
+            const code = error?.code || "";
+            if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found") {
+                return "Usuário ou senha incorretos. Verifique os dados informados.";
+            }
+            if (code === "auth/email-already-in-use") {
+                return "Este nome de usuário/e-mail já está cadastrado.";
+            }
+            if (code === "auth/weak-password") {
+                return "A senha deve ter pelo menos 6 caracteres.";
+            }
+            if (code === "auth/invalid-email") {
+                return "Formato de usuário ou e-mail inválido.";
+            }
+            if (code === "auth/operation-not-allowed" || code === "auth/configuration-not-found") {
+                return "Provedor Email/Senha não habilitado no console do Firebase Authentication.";
+            }
+            if (code === "auth/network-request-failed") {
+                return "Falha de conexão com a rede ao comunicar com o servidor de autenticação.";
+            }
+            if (code === "auth/too-many-requests") {
+                return "Muitas tentativas seguidas. Aguarde alguns instantes antes de tentar novamente.";
+            }
+            return "Não foi possível autenticar (" + (code || "erro desconhecido") + ").";
         }
 
         function closeAuthModal() {
@@ -1072,12 +1497,27 @@
         }
 
         function lockAndExitEditMode() {
-            isAuthorizedSession = false;
             switchMode("view");
-            showToast("Sessão bloqueada. Modo somente visualização ativo.");
+            showToast("Modo de edição bloqueado. Visualização ativa.");
+        }
+
+        async function handleSystemLogout() {
+            if (window.firebaseLogoutUser) {
+                try {
+                    await window.firebaseLogoutUser();
+                } catch (e) {
+                    console.error("Erro ao encerrar sessão:", e);
+                }
+            }
+            window.showLoginGateUI();
+            showToast("Sessão encerrada com sucesso.");
         }
 
         function switchMode(mode) {
+            // Segurança: impede que usuários não gestores entrem no modo de edição
+            if (mode === "edit" && window.currentUserRole !== "gestor") {
+                mode = "view";
+            }
             currentMode = mode;
             closeAttributePopover();
 
@@ -1087,8 +1527,12 @@
             const addCategoryWrapper = document.getElementById("addCategoryWrapper");
             const roleBadge = document.getElementById("roleBadge");
             const editorToolbarBtns = document.getElementById("editorToolbarBtns");
+            const loggedUserLabel = document.getElementById("loggedEditorUserLabel");
+            const displayUser = formatDisplayUser(window.currentEditorEmail);
 
             if (mode === "edit") {
+                if (loggedUserLabel) loggedUserLabel.innerText = displayUser;
+
                 btnEdit.className = "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all bg-white text-gray-900 shadow-sm";
                 btnView.className = "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800";
                 editBanner.classList.remove("hidden");
@@ -1097,17 +1541,26 @@
                 editorToolbarBtns.classList.add("flex");
 
                 roleBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-900 border border-amber-300";
-                roleBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span> Modo Editor (Autorizado)`;
+                roleBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span> Modo Edição (${displayUser})`;
             } else {
                 btnView.className = "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all bg-white text-gray-900 shadow-sm";
-                btnEdit.className = "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800";
+                if (window.currentUserRole === "gestor") {
+                    btnEdit.className = "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all text-gray-500 hover:text-gray-800";
+                } else {
+                    btnEdit.className = "hidden";
+                }
                 editBanner.classList.add("hidden");
                 addCategoryWrapper.classList.add("hidden");
                 editorToolbarBtns.classList.add("hidden");
                 editorToolbarBtns.classList.remove("flex");
 
-                roleBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200";
-                roleBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Modo Consulta (Leitor)`;
+                if (window.currentUserRole === "gestor") {
+                    roleBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#eef8fa] text-[#1e5259] border border-[#43aab8]/40";
+                    roleBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#43aab8]"></span> Gestor: ${displayUser} (Visualizando)`;
+                } else {
+                    roleBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200";
+                    roleBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Consulta: ${displayUser}`;
+                }
             }
 
             window.renderCatalog();
@@ -1126,8 +1579,18 @@
             if (currentMode !== "edit") return;
             const cat = window.catalogData.categories.find(c => c.id === catId);
             if (cat) {
+                const previousSupportsAddition = categorySupportsAddition(cat.name);
                 cat.name = newName.trim().toUpperCase();
+                const nowSupportsAddition = categorySupportsAddition(cat.name);
+
+                // Se a categoria passou a ser Multifocal ou Bifocal, garante o valor padrão de adição e re-renderiza a tabela
+                if (nowSupportsAddition) {
+                    ensureAdditionDefaults(window.catalogData);
+                }
                 saveCatalogToStorage();
+                if (previousSupportsAddition !== nowSupportsAddition) {
+                    window.renderCatalog();
+                }
             }
         }
 
@@ -1154,7 +1617,8 @@
             if (currentMode !== "edit") return;
             const row = findRow(catId, tableId, rowId);
             if (row) {
-                row[field] = newValue.trim();
+                const cleaned = newValue.trim();
+                row[field] = (field === "addition" && !cleaned) ? DEFAULT_ADDITION_VALUE : cleaned;
                 saveCatalogToStorage();
             }
         }
@@ -1265,17 +1729,24 @@
 
         // Adicionar/Remover/Mover Linhas
         function addNewLensRow(catId, tableId) {
+            const cat = window.catalogData.categories.find(c => c.id === catId);
             const table = findTable(catId, tableId);
             if (!table) return;
 
-            table.rows.push({
+            const newRow = {
                 id: "row_" + Date.now(),
                 name: `${table.brandName} NOVA LENTE 1.56`,
                 attributes: ["ar_verde"],
                 spherical: "+4,00/-6,00",
                 cylindrical: "0,00/-2,00",
                 price: "R$ 0,00"
-            });
+            };
+
+            if (cat && categorySupportsAddition(cat.name)) {
+                newRow.addition = DEFAULT_ADDITION_VALUE;
+            }
+
+            table.rows.push(newRow);
 
             saveCatalogToStorage();
             window.renderCatalog();
@@ -1309,20 +1780,24 @@
             const cat = window.catalogData.categories.find(c => c.id === catId);
             if (!cat) return;
 
+            const sampleRow = {
+                id: "row_" + Date.now() + "_1",
+                name: "LENTE EXEMPLO 1.56",
+                attributes: ["incolor", "ar_verde"],
+                spherical: "+4,00/-6,00",
+                cylindrical: "0,00/-2,00",
+                price: "R$ 590,00"
+            };
+
+            if (categorySupportsAddition(cat.name)) {
+                sampleRow.addition = DEFAULT_ADDITION_VALUE;
+            }
+
             cat.tables.push({
                 id: "tb_" + Date.now(),
                 brandName: "NOVA MARCA",
                 headerColor: "#43aab8",
-                rows: [
-                    {
-                        id: "row_" + Date.now() + "_1",
-                        name: "LENTE EXEMPLO 1.56",
-                        attributes: ["incolor", "ar_verde"],
-                        spherical: "+4,00/-6,00",
-                        cylindrical: "0,00/-2,00",
-                        price: "R$ 590,00"
-                    }
-                ]
+                rows: [sampleRow]
             });
 
             saveCatalogToStorage();
@@ -1365,7 +1840,7 @@
         function addNewCategory() {
             window.catalogData.categories.push({
                 id: "cat_" + Date.now(),
-                name: "NOVA CATEGORIA",
+                name: "MULTIFOCAIS",
                 pageBreakBefore: false,
                 tables: [
                     {
@@ -1375,10 +1850,11 @@
                         rows: [
                             {
                                 id: "row_" + Date.now(),
-                                name: "OPTVIEW LENTE 1.56",
+                                name: "OPTVIEW MULTIFOCAL 1.56",
                                 attributes: ["ar_azul", "superhidro"],
                                 spherical: "+4,00/-6,00",
                                 cylindrical: "0,00/-2,00",
+                                addition: DEFAULT_ADDITION_VALUE,
                                 price: "R$ 750,00"
                             }
                         ]
@@ -1426,7 +1902,7 @@
         }
 
         /********************************************************************
-         * 7. FILTROS (MÚLTIPLOS ATRIBUTOS "OU" + CATEGORIAS), BUSCA E BACKUP
+         * 7. FILTROS (MÚLTIPLOS ATRIBUTOS RESTRITIVOS "E" + CATEGORIAS), BUSCA E BACKUP
          ********************************************************************/
         function handleSearch(value) {
             activeSearchTerm = value.trim().toLowerCase();
@@ -1485,9 +1961,9 @@
             if (activeAttributeFilters.length > 0) {
                 const labels = activeAttributeFilters
                     .map(k => ATTRIBUTES_CONFIG[k] ? ATTRIBUTES_CONFIG[k].label : k)
-                    .join(" ou ");
+                    .join(" + ");
                 notice.classList.remove("hidden");
-                noticeText.innerText = `Exibindo lentes com: ${labels}`;
+                noticeText.innerText = `Exibindo lentes que possuem: ${labels}`;
             } else {
                 notice.classList.add("hidden");
             }
@@ -1541,6 +2017,7 @@
                     const parsed = JSON.parse(e.target.result);
                     if (parsed && Array.isArray(parsed.categories)) {
                         window.catalogData = parsed;
+                        ensureAdditionDefaults(window.catalogData);
                         saveCatalogToStorage();
                         window.renderCatalog();
                         showToast("Catálogo importado com sucesso!");
@@ -1568,8 +2045,8 @@
         /********************************************************************
          * 8. MODAIS AUXILIARES E UTILITÁRIOS
          ********************************************************************/
-        function openPinSettingsModal() {
-            document.getElementById("newPinInput").value = getEditorPin();
+        function openMasterCodeSettingsModal() {
+            document.getElementById("newPinInput").value = getMasterKey();
             document.getElementById("pinSettingsModal").classList.remove("hidden");
         }
 
@@ -1577,13 +2054,13 @@
             document.getElementById("pinSettingsModal").classList.add("hidden");
         }
 
-        function saveNewPin(event) {
+        function saveNewMasterCode(event) {
             event.preventDefault();
             const val = document.getElementById("newPinInput").value.trim();
             if (val.length >= 3) {
-                localStorage.setItem(PIN_STORAGE_KEY, val);
+                localStorage.setItem(MASTER_KEY_STORAGE, val);
                 closePinSettingsModal();
-                showToast("Novo PIN de Editor salvo!");
+                showToast("Nova chave de autorização salva!");
             }
         }
 
@@ -1645,10 +2122,20 @@
         };
     </script> 
 
-    <!-- Script de Integração com o Firebase -->
+    <!-- Script de Integração com o Firebase (Firestore + Firebase Authentication) -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { getFirestore, doc, getDoc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { 
+        getAuth, 
+        signInWithEmailAndPassword, 
+        createUserWithEmailAndPassword, 
+        signOut, 
+        onAuthStateChanged,
+        setPersistence,
+        browserLocalPersistence,
+        browserSessionPersistence
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
       const firebaseConfig = {
         apiKey: "AIzaSyC7UI7RcpNbgJq-9fievyWBb1_Fizzk2g8",
@@ -1661,6 +2148,206 @@
 
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
+      const auth = getAuth(app);
+      // Instância secundária para criar novos usuários sem deslogar o gestor atual
+      const secondaryApp = initializeApp(firebaseConfig, "SecondaryUserCreatorApp");
+      const secondaryAuth = getAuth(secondaryApp);
+
+      const FALLBACK_USERS_STORAGE_KEY = "otica_duo_fallback_auth_users_v1";
+      const FALLBACK_SESSION_STORAGE_KEY = "otica_duo_fallback_auth_session_v1";
+      const FALLBACK_LOCAL_PERSIST_KEY = "otica_duo_remember_me_session_v1";
+      const MAIN_MANAGERS = ["itallo@oticasduo.com.br"];
+      const credenciaisDocRef = doc(db, "catalogo", "credenciais_editores");
+
+      // Utilitário de Hash SHA-256 para guardar credenciais com segurança caso o Firebase Auth Console não esteja configurado
+      async function hashPassword(password) {
+        const msgBuffer = new TextEncoder().encode(password + "_oticas_duo_salt");
+        const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      async function getFallbackUsersMap() {
+        let localUsers = {};
+        try {
+          localUsers = JSON.parse(localStorage.getItem(FALLBACK_USERS_STORAGE_KEY) || "{}");
+        } catch (e) {
+          localUsers = {};
+        }
+
+        try {
+          const snap = await getDoc(credenciaisDocRef);
+          if (snap.exists() && snap.data().usuarios) {
+            const merged = { ...localUsers, ...snap.data().usuarios };
+            localStorage.setItem(FALLBACK_USERS_STORAGE_KEY, JSON.stringify(merged));
+            return merged;
+          }
+        } catch (err) {
+          // Segue com armazenamento local se o Firestore estiver offline
+        }
+        return localUsers;
+      }
+
+      async function getUserRoleByEmail(email) {
+        const cleanEmail = (email || "").trim().toLowerCase();
+        if (MAIN_MANAGERS.includes(cleanEmail)) {
+          return "gestor";
+        }
+        const users = await getFallbackUsersMap();
+        if (users[cleanEmail] && users[cleanEmail].role) {
+          return users[cleanEmail].role;
+        }
+        return "visualizador";
+      }
+
+      async function saveFallbackUser(email, passwordHash, role = "visualizador") {
+        const cleanEmail = email.trim().toLowerCase();
+        const effectiveRole = MAIN_MANAGERS.includes(cleanEmail) ? "gestor" : role;
+        const users = await getFallbackUsersMap();
+        const existingHash = users[cleanEmail]?.passwordHash || "";
+
+        users[cleanEmail] = {
+          email: cleanEmail,
+          passwordHash: passwordHash || existingHash,
+          role: effectiveRole,
+          updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem(FALLBACK_USERS_STORAGE_KEY, JSON.stringify(users));
+
+        try {
+          await setDoc(credenciaisDocRef, { usuarios: users }, { merge: true });
+        } catch (err) {
+          // Salvo localmente caso o Firestore bloqueie escrita
+        }
+      }
+
+      function saveSessionPersistence(email, role, rememberMe) {
+        const sessionPayload = JSON.stringify({ email, role, timestamp: Date.now() });
+        sessionStorage.setItem(FALLBACK_SESSION_STORAGE_KEY, sessionPayload);
+        if (rememberMe) {
+          localStorage.setItem(FALLBACK_LOCAL_PERSIST_KEY, sessionPayload);
+        } else {
+          localStorage.removeItem(FALLBACK_LOCAL_PERSIST_KEY);
+        }
+      }
+
+      function clearSessionPersistence() {
+        sessionStorage.removeItem(FALLBACK_SESSION_STORAGE_KEY);
+        localStorage.removeItem(FALLBACK_LOCAL_PERSIST_KEY);
+      }
+
+      function getSavedSessionPersistence() {
+        try {
+          const fromSession = sessionStorage.getItem(FALLBACK_SESSION_STORAGE_KEY);
+          if (fromSession) return JSON.parse(fromSession);
+          const fromLocal = localStorage.getItem(FALLBACK_LOCAL_PERSIST_KEY);
+          if (fromLocal) return JSON.parse(fromLocal);
+        } catch (e) {
+          return null;
+        }
+        return null;
+      }
+
+      function isAuthConfigOrNetworkError(err) {
+        const code = err?.code || "";
+        return (
+          code === "auth/configuration-not-found" ||
+          code === "auth/operation-not-allowed" ||
+          code === "auth/network-request-failed" ||
+          code === "auth/internal-error"
+        );
+      }
+
+      // Login com suporte a "Lembrar-me" e resolução do papel (Gestor vs. Visualizador)
+      window.firebaseLoginUser = async (email, password, rememberMe = true) => {
+        const normalizedEmail = email.trim().toLowerCase();
+        try {
+          await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
+          const cred = await signInWithEmailAndPassword(auth, normalizedEmail, password);
+          const role = await getUserRoleByEmail(normalizedEmail);
+
+          // Garante que o papel de itallo@oticasduo.com.br esteja registrado como gestor
+          if (MAIN_MANAGERS.includes(normalizedEmail)) {
+            const pwdHash = await hashPassword(password);
+            await saveFallbackUser(normalizedEmail, pwdHash, "gestor");
+          }
+
+          saveSessionPersistence(normalizedEmail, role, rememberMe);
+          return { user: cred.user, role };
+        } catch (err) {
+          if (isAuthConfigOrNetworkError(err) || err?.code === "auth/user-not-found" || err?.code === "auth/invalid-credential") {
+            const users = await getFallbackUsersMap();
+            const pwdHash = await hashPassword(password);
+            const record = users[normalizedEmail];
+            if (record && record.passwordHash === pwdHash) {
+              const role = MAIN_MANAGERS.includes(normalizedEmail) ? "gestor" : (record.role || "visualizador");
+              saveSessionPersistence(normalizedEmail, role, rememberMe);
+              return { user: { email: normalizedEmail }, role };
+            }
+            if (isAuthConfigOrNetworkError(err)) {
+              const invalidErr = new Error("Usuário ou senha incorretos.");
+              invalidErr.code = "auth/invalid-credential";
+              throw invalidErr;
+            }
+          }
+          throw err;
+        }
+      };
+
+      // Cadastro de novos usuários pelo Gestor (sem desconectar a sessão atual do gestor)
+      window.firebaseRegisterUser = async (email, password, role = "visualizador") => {
+        const normalizedEmail = email.trim().toLowerCase();
+        const effectiveRole = MAIN_MANAGERS.includes(normalizedEmail) ? "gestor" : role;
+        const pwdHash = await hashPassword(password);
+
+        try {
+          const cred = await createUserWithEmailAndPassword(secondaryAuth, normalizedEmail, password);
+          await signOut(secondaryAuth);
+          await saveFallbackUser(normalizedEmail, pwdHash, effectiveRole);
+          return { user: cred.user, role: effectiveRole };
+        } catch (err) {
+          if (isAuthConfigOrNetworkError(err)) {
+            const users = await getFallbackUsersMap();
+            if (users[normalizedEmail]) {
+              const dupErr = new Error("Usuário já cadastrado.");
+              dupErr.code = "auth/email-already-in-use";
+              throw dupErr;
+            }
+            await saveFallbackUser(normalizedEmail, pwdHash, effectiveRole);
+            return { user: { email: normalizedEmail }, role: effectiveRole };
+          }
+          throw err;
+        }
+      };
+
+      window.firebaseLogoutUser = async () => {
+        clearSessionPersistence();
+        try {
+          await signOut(auth);
+        } catch (e) {
+          // Ignora erro caso estivesse em sessão de fallback
+        }
+      };
+
+      // Restaura sessão se o usuário estiver autenticado ou marcou "Lembrar-me"
+      onAuthStateChanged(auth, async (user) => {
+        const savedSession = getSavedSessionPersistence();
+        if (user && user.email) {
+          const role = await getUserRoleByEmail(user.email);
+          if (typeof window.applyAuthenticatedSessionUI === "function") {
+            window.applyAuthenticatedSessionUI(user.email, role);
+          }
+        } else if (savedSession && savedSession.email) {
+          const role = await getUserRoleByEmail(savedSession.email);
+          if (typeof window.applyAuthenticatedSessionUI === "function") {
+            window.applyAuthenticatedSessionUI(savedSession.email, role);
+          }
+        } else {
+          if (typeof window.showLoginGateUI === "function") {
+            window.showLoginGateUI();
+          }
+        }
+      });
 
       const catalogoDocRef = doc(db, "catalogo", "principal");
 
